@@ -5,8 +5,12 @@
  */
 package org.cantact.ui;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.util.HashMap;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.cantact.core.CanFrame;
 import org.cantact.core.CanListener;
@@ -16,6 +20,91 @@ import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
+
+class LiveTableDataCell {
+    private String current = "";
+    private String previous = "";
+    
+    public String getCurrent() {
+        return current;
+    }
+    public void setCurrent(String value) {
+         current = value;
+    }
+    public String getPrevious() {
+        return previous;
+    }
+    public void getCurrent(String value) {
+        previous = value;
+    }
+    public void swap() {
+        previous = current;
+        current = "";
+    }
+    @Override
+    public String toString() {
+        return current;
+    }
+}
+
+class LiveTableRenderer extends DefaultTableCellRenderer {
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+        Component c;
+        if (value instanceof LiveTableDataCell) {
+            LiveTableDataCell dataCell = (LiveTableDataCell)value;
+            c = super.getTableCellRendererComponent(table, 
+                dataCell.getCurrent(), isSelected, hasFocus, row, 
+                column);
+            
+            // byte coloring
+            // get the new byte values and old byte values
+            String[] currentBytes = dataCell.getCurrent().split(" ");
+            String[] prevBytes = dataCell.getPrevious().split(" ");
+            String result = "<html>";
+            
+            for (int i = 0; i < currentBytes.length; i++) {
+                // out of bytes in previous data, all other bytes are new
+                if (i >= prevBytes.length) {
+                    result = result + ("<font color='red'>" + 
+                                       currentBytes[i] +
+                                       "</font> ");
+                    
+                } else {
+                    // check if the byte has changed
+                    if (currentBytes[i].equals(prevBytes[i])) {
+                        // byte has not changed
+                        result = result + ("<font color='black'>" + 
+                                           currentBytes[i] +
+                                           "</font> ");
+                    } else {
+                        // byte changed
+                        result = result + ("<font color='red'>" + 
+                                           currentBytes[i] +
+                                           "</font> ");
+                    }
+                }
+            }
+            result = result + "</html>";
+            setText(result);
+            /*
+            if (dataCell.getCurrent().equals(dataCell.getPrevious()))
+            {
+                c.setForeground(Color.lightGray);
+            } else {
+                c.setForeground(Color.black);
+            }*/
+
+        } else {
+            c = super.getTableCellRendererComponent(table, 
+                value, isSelected, hasFocus, row, 
+                column);
+        }
+        return c;
+    }
+}
+
 
 /**
  * Top component which displays something.
@@ -42,13 +131,13 @@ import org.openide.util.NbBundle.Messages;
     "HINT_LiveTopComponent=This is a Live window"
 })
 
-
 public final class LiveTopComponent extends TopComponent implements CanListener {
 
     public LiveTopComponent() {
         initComponents();
         setName(Bundle.CTL_LiveTopComponent());
         setToolTipText(Bundle.HINT_LiveTopComponent());
+        liveTable.setDefaultRenderer(Object.class, new LiveTableRenderer());
         DeviceManager.addListener(this);
     }
     class LiveUpdater implements Runnable {
@@ -61,17 +150,27 @@ public final class LiveTopComponent extends TopComponent implements CanListener 
             for (int i = 0; i < frame.getDlc(); i++) {
                 dataString = dataString + String.format("%02X ", frame.getData()[i]);
             }
+            
             DefaultTableModel liveModel = (DefaultTableModel) liveTable.getModel();
             boolean inserted = false;
+                   
             for (int i = 0; i < liveModel.getRowCount(); i++) {
                 if ((int)liveModel.getValueAt(i, 0) == frame.getId()) {
                     liveModel.setValueAt((Object)frame.getDlc(), i, 1);
-                    liveModel.setValueAt(dataString, i, 2);    
+                    // get the existing cell data
+                    LiveTableDataCell dataCell = (LiveTableDataCell)liveModel.getValueAt(i, 2);
+                    dataCell.swap();
+                    // set current value to new data
+                    dataCell.setCurrent(dataString);
+                    // push to the table
+                    liveModel.setValueAt(dataCell, i, 2);    
                     inserted = true;
                 }
             }
             if (!inserted) {
-                Object[] rowData = {(Object)frame.getId(), (Object)frame.getDlc(), dataString};
+                LiveTableDataCell dataCell = new LiveTableDataCell();
+                dataCell.setCurrent(dataString);
+                Object[] rowData = {(Object)frame.getId(), (Object)frame.getDlc(), dataCell};
                 liveModel.addRow(rowData);
             }
         }
@@ -102,7 +201,7 @@ public final class LiveTopComponent extends TopComponent implements CanListener 
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {

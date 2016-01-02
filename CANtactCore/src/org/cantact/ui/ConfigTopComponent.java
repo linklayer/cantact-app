@@ -10,7 +10,6 @@ import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
-import org.cantact.core.CanFrame;
 import org.cantact.core.DeviceManager;
 
 /**
@@ -65,7 +64,6 @@ public final class ConfigTopComponent extends TopComponent {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         startButton = new javax.swing.JButton();
         portComboBox = new javax.swing.JComboBox();
@@ -73,6 +71,7 @@ public final class ConfigTopComponent extends TopComponent {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
+        stopButton = new javax.swing.JButton();
 
         org.openide.awt.Mnemonics.setLocalizedText(startButton, org.openide.util.NbBundle.getMessage(ConfigTopComponent.class, "ConfigTopComponent.startButton.text")); // NOI18N
         startButton.addActionListener(new java.awt.event.ActionListener() {
@@ -82,6 +81,11 @@ public final class ConfigTopComponent extends TopComponent {
         });
 
         portComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None" }));
+        portComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                portComboBoxActionPerformed(evt);
+            }
+        });
 
         bitRateComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10 Kbps", "20 Kbps", "50 Kbps", "100 Kbps", "125 Kbps", "250 Kbps", "500 Kbps", "750 Kbps", "1000 Kbps" }));
 
@@ -93,6 +97,14 @@ public final class ConfigTopComponent extends TopComponent {
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refreshButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(stopButton, org.openide.util.NbBundle.getMessage(ConfigTopComponent.class, "ConfigTopComponent.stopButton.text")); // NOI18N
+        stopButton.setEnabled(false);
+        stopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stopButtonActionPerformed(evt);
             }
         });
 
@@ -111,7 +123,11 @@ public final class ConfigTopComponent extends TopComponent {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(startButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(startButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(stopButton)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(bitRateComboBox, 0, 180, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(refreshButton)
@@ -134,21 +150,51 @@ public final class ConfigTopComponent extends TopComponent {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(bitRateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(startButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(startButton)
+                    .addComponent(stopButton))
                 .addContainerGap(203, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         String portName = this.portComboBox.getSelectedItem().toString();
+        if (portName.equals("None")) {
+            // no device selected, do nothing
+            return;
+        }
         int speed = this.bitRateComboBox.getSelectedIndex();
-        DeviceManager.openDevice(portName, speed);
-        
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
+        DeviceManager.openDevice(portName, speed); 
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         setPortList();
     }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void portComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_portComboBoxActionPerformed
+        if (this.portComboBox.getSelectedItem() == null) {
+            return;
+        } 
+        String portName = this.portComboBox.getSelectedItem().toString();
+        if (DeviceManager.isDeviceOpen(portName)) {
+            startButton.setEnabled(false);
+            stopButton.setEnabled(true);
+        } else {
+            startButton.setEnabled(true);
+            stopButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_portComboBoxActionPerformed
+
+    private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
+        String portName = this.portComboBox.getSelectedItem().toString();
+        if (DeviceManager.isDeviceOpen(portName)) {
+            DeviceManager.closeDevice(portName);
+            stopButton.setEnabled(false);
+            startButton.setEnabled(true);        
+        }
+    }//GEN-LAST:event_stopButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox bitRateComboBox;
@@ -157,6 +203,7 @@ public final class ConfigTopComponent extends TopComponent {
     private javax.swing.JComboBox portComboBox;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton startButton;
+    private javax.swing.JButton stopButton;
     // End of variables declaration//GEN-END:variables
     @Override
     public void componentOpened() {

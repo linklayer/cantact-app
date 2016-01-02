@@ -54,7 +54,7 @@
               <Table columnCount="3" rowCount="0">
                 <Column editable="true" title="ID" type="java.lang.Integer"/>
                 <Column editable="true" title="DLC" type="java.lang.Integer"/>
-                <Column editable="true" title="Data" type="java.lang.String"/>
+                <Column editable="true" title="Data" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>

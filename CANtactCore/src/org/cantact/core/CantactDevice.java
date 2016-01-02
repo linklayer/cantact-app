@@ -33,6 +33,21 @@ public class CantactDevice {
         this.speedMode = speedMode;
     }
     
+    public boolean isOpened() {
+        if (this.serialPort == null) {
+            return false;
+        } else {
+            return this.serialPort.isOpened();
+        }
+    }
+    
+    public String getDeviceName() {
+        if (this.serialPort == null) {
+            return "none";
+        }
+        return this.serialPort.getPortName();
+    }
+    
     public static String[] getDeviceList() {
         return SerialPortList.getPortNames();
     }
@@ -40,6 +55,10 @@ public class CantactDevice {
     public void start() {
         try {
             this.serialPort.openPort();
+            if (!this.serialPort.isOpened()) {
+                // TODO: throw error
+                return;
+            }
             this.serialPort.setParams(115200, 8, 1, 0);
             
             // close the device first, to ensure we can set bitrate
@@ -55,11 +74,16 @@ public class CantactDevice {
     }
     
     public void stop() {
+        if (this.serialPort == null) {
+            return;
+        }
+        
         try {
             this.serialPort.writeBytes("C\r".getBytes());
+            this.serialPort.closePort();
         } catch (SerialPortException ex) {
             System.out.println(ex);
-        }
+        }     
     }
     
     public CanFrame readFrame() {

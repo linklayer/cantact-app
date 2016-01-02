@@ -20,9 +20,20 @@ public final class DeviceManager {
     private static final Runnable readThread = new Runnable() {
         @Override
         public void run() {
-            readTask();
+            if (device.isOpened()) {
+                readTask();
+            }
         }
     };
+    
+    public static boolean isDeviceOpen(String devName) {
+        if (device != null && devName != null) { 
+            return (device.getDeviceName().
+                    equals(devName) && device.isOpened());
+        } else {
+            return false;
+        }
+    }
     
     public static void addListener(CanListener l) {
         canListeners.add(l);
@@ -43,6 +54,10 @@ public final class DeviceManager {
         
     }
     
+    public static void sendFrame(CanFrame f) {
+        device.sendFrame(f);
+    }
+    
     private static void readTask() {
         for(;;) {
             CanFrame f = device.readFrame();
@@ -52,5 +67,14 @@ public final class DeviceManager {
             }
         }
     }
-}
 
+    public static void transmit(CanFrame txFrame) {
+        if (device != null) {
+            device.sendFrame(txFrame);
+        }
+    }
+
+    public static void closeDevice(String portName) {
+        device.stop();
+    }
+}
