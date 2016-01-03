@@ -190,6 +190,8 @@ public final class LiveTopComponent extends TopComponent implements CanListener 
 
         jScrollPane2 = new javax.swing.JScrollPane();
         liveTable = new javax.swing.JTable();
+        jToolBar2 = new javax.swing.JToolBar();
+        clearButton = new javax.swing.JButton();
 
         liveTable.setAutoCreateRowSorter(true);
         liveTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -210,30 +212,48 @@ public final class LiveTopComponent extends TopComponent implements CanListener 
         });
         jScrollPane2.setViewportView(liveTable);
 
+        jToolBar2.setRollover(true);
+
+        org.openide.awt.Mnemonics.setLocalizedText(clearButton, org.openide.util.NbBundle.getMessage(LiveTopComponent.class, "LiveTopComponent.clearButton.text")); // NOI18N
+        clearButton.setFocusable(false);
+        clearButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        clearButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(clearButton);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 709, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        DefaultTableModel liveModel = (DefaultTableModel) liveTable.getModel();
+        while (liveModel.getRowCount() > 0) {
+            for (int i = 0; i < liveModel.getRowCount(); i++) {
+                liveModel.removeRow(i);
+            }
+        }
+    }//GEN-LAST:event_clearButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton clearButton;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JTable liveTable;
     // End of variables declaration//GEN-END:variables
     @Override

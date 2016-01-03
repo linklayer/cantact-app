@@ -132,11 +132,11 @@ public class CantactDevice {
             
             Byte[] dataBytes = Arrays.copyOfRange(slcanData, 5, 
                                                   slcanData.length);
-            int[] data = {0,0,0,0,0,0,0,0};
+            byte[] data = {0,0,0,0,0,0,0,0};
             for(int i=0; i < dlc; i++) {    
                 String byteString;
                 byteString = this.byteArrayToString(Arrays.copyOfRange(dataBytes, i*2, i*2+2));
-                data[i] = Integer.valueOf(byteString, 16);
+                data[i] = Integer.valueOf(byteString, 16).byteValue();
             }        
             result.setData(data);
         }

@@ -14,7 +14,7 @@ package org.cantact.core;
 public class CanFrame {
     private int id;
     private int dlc;
-    private int[] data;
+    private byte[] data;
     
     public int getId() {
         return this.id;
@@ -30,10 +30,10 @@ public class CanFrame {
         this.dlc = new_dlc;
     }
     
-    public int[] getData() {
+    public byte[] getData() {
         return this.data;
     }
-    public void setData(int[] new_data) {
+    public void setData(byte[] new_data) {
         this.data = new_data;
     }
 }
