@@ -167,7 +167,7 @@ public final class TransmitTopComponent extends TopComponent {
         CanFrame txFrame = new CanFrame();
         txFrame.setId(Integer.decode(this.idField.getText()));
         txFrame.setDlc(Integer.decode(this.dlcComboBox.getSelectedItem().toString()));
-        byte[] data = {
+        int[] data = {
             Integer.decode(this.byte0Field.getText()).byteValue(),
             Integer.decode(this.byte1Field.getText()).byteValue(),
             Integer.decode(this.byte2Field.getText()).byteValue(),

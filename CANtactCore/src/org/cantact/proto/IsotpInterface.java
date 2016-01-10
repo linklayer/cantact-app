@@ -24,7 +24,7 @@ public class IsotpInterface implements CanListener {
             CanFrame sf = new CanFrame();
             sf.setDlc(data.length + 1);
             sf.setId(id);
-            byte[] frameData = new byte[8];
+            int[] frameData = new int[8];
             // set first byte as SF with length
             // upper nybble = 0 for SF, lower nybble = data length
             frameData[0] = (byte)data.length;
@@ -39,14 +39,14 @@ public class IsotpInterface implements CanListener {
                 }
             }
             sf.setData(frameData);
-            DeviceManager.sendFrame(sf);
+            DeviceManager.transmit(sf);
         } else {
             // data is longer than single frame, need to send multiple
             // assemble first frame
             CanFrame ff = new CanFrame();
             ff.setDlc(data.length + 1);
             ff.setId(id);
-            byte[] frameData = new byte[8];
+            int[] frameData = new int[8];
             
             // set first two bytes for FF
             // byte 0: upper nybble = 1 for FF,

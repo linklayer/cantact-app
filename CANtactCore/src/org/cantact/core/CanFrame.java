@@ -14,7 +14,7 @@ package org.cantact.core;
 public class CanFrame {
     private int id;
     private int dlc;
-    private byte[] data;
+    private int[] data;
     
     public int getId() {
         return this.id;
@@ -30,10 +30,13 @@ public class CanFrame {
         this.dlc = new_dlc;
     }
     
-    public byte[] getData() {
+    public int[] getData() {
         return this.data;
     }
-    public void setData(byte[] new_data) {
-        this.data = new_data;
+    public void setData(int[] new_data) {
+        int[] result = {0,0,0,0,0,0,0,0};
+        // copy into empty array to ensure length is 8
+        System.arraycopy(new_data, 0, result, 0, new_data.length);
+        this.data = result;
     }
 }

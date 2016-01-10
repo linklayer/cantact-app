@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public final class DeviceManager {
     private static CantactDevice device;
-    private static ArrayList<CanListener> canListeners = new ArrayList<>();
-    
+    private final static ArrayList<CanListener> canListeners = new ArrayList<>();
+ 
     private static final Runnable readThread = new Runnable() {
         @Override
         public void run() {
@@ -51,11 +51,6 @@ public final class DeviceManager {
         device.setSpeedMode(speed);
         device.start();
         new Thread(readThread).start();
-        
-    }
-    
-    public static void sendFrame(CanFrame f) {
-        device.sendFrame(f);
     }
     
     private static void readTask() {
@@ -71,6 +66,9 @@ public final class DeviceManager {
     public static void transmit(CanFrame txFrame) {
         if (device != null) {
             device.sendFrame(txFrame);
+            for (CanListener l : canListeners) {
+                l.canReceived(txFrame);
+            }
         }
     }
 

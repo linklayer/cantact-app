@@ -5,8 +5,6 @@
  */
 package org.cantact.core;
 
-import org.cantact.core.CanFrame;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -132,11 +130,11 @@ public class CantactDevice {
             
             Byte[] dataBytes = Arrays.copyOfRange(slcanData, 5, 
                                                   slcanData.length);
-            byte[] data = {0,0,0,0,0,0,0,0};
+            int[] data = {0,0,0,0,0,0,0,0};
             for(int i=0; i < dlc; i++) {    
                 String byteString;
                 byteString = this.byteArrayToString(Arrays.copyOfRange(dataBytes, i*2, i*2+2));
-                data[i] = Integer.valueOf(byteString, 16).byteValue();
+                data[i] = Integer.valueOf(byteString, 16);
             }        
             result.setData(data);
         }
