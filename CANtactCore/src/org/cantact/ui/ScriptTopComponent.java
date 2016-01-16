@@ -143,8 +143,7 @@ public final class ScriptTopComponent extends TopComponent {
 
     private void openButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openButtonActionPerformed
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                                            "JS Scripts", "js");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JS Scripts", "js");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
