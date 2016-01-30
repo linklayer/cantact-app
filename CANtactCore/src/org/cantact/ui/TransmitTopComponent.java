@@ -7,6 +7,7 @@ package org.cantact.ui;
 
 import org.cantact.core.CanFrame;
 import org.cantact.core.DeviceManager;
+import org.cantact.proto.IsotpInterface;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -38,13 +39,11 @@ import org.openide.util.NbBundle.Messages;
     "HINT_TransmitTopComponent=This is a Transmit window"
 })
 public final class TransmitTopComponent extends TopComponent {
-
     public TransmitTopComponent() {
         initComponents();
         setName(Bundle.CTL_TransmitTopComponent());
         setToolTipText(Bundle.HINT_TransmitTopComponent());
         putClientProperty(TopComponent.PROP_MAXIMIZATION_DISABLED, Boolean.TRUE);
-
     }
 
     /**
@@ -168,19 +167,20 @@ public final class TransmitTopComponent extends TopComponent {
         txFrame.setId(Integer.decode(this.idField.getText()));
         txFrame.setDlc(Integer.decode(this.dlcComboBox.getSelectedItem().toString()));
         int[] data = {
-            Integer.decode(this.byte0Field.getText()).byteValue(),
-            Integer.decode(this.byte1Field.getText()).byteValue(),
-            Integer.decode(this.byte2Field.getText()).byteValue(),
-            Integer.decode(this.byte3Field.getText()).byteValue(),
-            Integer.decode(this.byte4Field.getText()).byteValue(),
-            Integer.decode(this.byte5Field.getText()).byteValue(),
-            Integer.decode(this.byte6Field.getText()).byteValue(),
-            Integer.decode(this.byte7Field.getText()).byteValue()
+            Integer.decode(this.byte0Field.getText()),
+            Integer.decode(this.byte1Field.getText()),
+            Integer.decode(this.byte2Field.getText()),
+            Integer.decode(this.byte3Field.getText()),
+            Integer.decode(this.byte4Field.getText()),
+            Integer.decode(this.byte5Field.getText()),
+            Integer.decode(this.byte6Field.getText()),
+            Integer.decode(this.byte7Field.getText())
         };
         txFrame.setData(data);
         DeviceManager.transmit(txFrame);
     }//GEN-LAST:event_transmitButtonActionPerformed
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField byte0Field;
     private javax.swing.JTextField byte1Field;
