@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <file name="Toolbars_hidden"/>
+    <folder name="xml">
+        <folder name="entities">
+            <folder name="org_cantact_ui">
+                <file name="Config" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
+                    <!--org.cantact.ui.ConfigTopComponent-->
+                    <attr name="hint.originalPublicID" stringvalue="-//org.cantact.ui//Config//EN"/>
+                </file>
+                <file name="ISOTP" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
+                    <!--org.cantact.ui.IsotpTopComponent-->
+                    <attr name="hint.originalPublicID" stringvalue="-//org.cantact.ui//ISOTP//EN"/>
+                </file>
+                <file name="Live" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
+                    <!--org.cantact.ui.LiveTopComponent-->
+                    <attr name="hint.originalPublicID" stringvalue="-//org.cantact.ui//Live//EN"/>
+                </file>
+                <file name="Script" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
+                    <!--org.cantact.ui.ScriptTopComponent-->
+                    <attr name="hint.originalPublicID" stringvalue="-//org.cantact.ui//Script//EN"/>
+                </file>
+                <file name="Trace" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
+                    <!--org.cantact.ui.TraceTopComponent-->
+                    <attr name="hint.originalPublicID" stringvalue="-//org.cantact.ui//Trace//EN"/>
+                </file>
+                <file name="Transmit" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
+                    <!--org.cantact.ui.TransmitTopComponent-->
+                    <attr name="hint.originalPublicID" stringvalue="-//org.cantact.ui//Transmit//EN"/>
+                </file>
+            </folder>
+        </folder>
+        <folder name="memory">
+            <folder name="org">
+                <folder name="cantact">
+                    <folder name="ui">
+                        <file name="ConfigTopComponent">
+                            <!--org.cantact.ui.ConfigTopComponent-->
+                            <attr name="settings.providerPath" stringvalue="xml/lookups//org_cantact_ui/Config.instance"/>
+                        </file>
+                        <file name="IsotpTopComponent">
+                            <!--org.cantact.ui.IsotpTopComponent-->
+                            <attr name="settings.providerPath" stringvalue="xml/lookups//org_cantact_ui/ISOTP.instance"/>
+                        </file>
+                        <file name="LiveTopComponent">
+                            <!--org.cantact.ui.LiveTopComponent-->
+                            <attr name="settings.providerPath" stringvalue="xml/lookups//org_cantact_ui/Live.instance"/>
+                        </file>
+                        <file name="ScriptTopComponent">
+                            <!--org.cantact.ui.ScriptTopComponent-->
+                            <attr name="settings.providerPath" stringvalue="xml/lookups//org_cantact_ui/Script.instance"/>
+                        </file>
+                        <file name="TraceTopComponent">
+                            <!--org.cantact.ui.TraceTopComponent-->
+                            <attr name="settings.providerPath" stringvalue="xml/lookups//org_cantact_ui/Trace.instance"/>
+                        </file>
+                        <file name="TransmitTopComponent">
+                            <!--org.cantact.ui.TransmitTopComponent-->
+                            <attr name="settings.providerPath" stringvalue="xml/lookups//org_cantact_ui/Transmit.instance"/>
+                        </file>
+                    </folder>
+                </folder>
+            </folder>
+        </folder>
+        <folder name="lookups">
+            <folder name="org_cantact_ui">
+                <file name="Config.instance">
+                    <!--org.cantact.ui.ConfigTopComponent-->
+                    <attr methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
+                    <attr methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
+                    <attr name="settings.instanceClass" stringvalue="org.cantact.ui.ConfigTopComponent"/>
+                    <attr name="settings.instanceOf" stringvalue="org.cantact.ui.ConfigTopComponent"/>
+                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
+                </file>
+                <file name="ISOTP.instance">
+                    <!--org.cantact.ui.IsotpTopComponent-->
+                    <attr methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
+                    <attr methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
+                    <attr name="settings.instanceClass" stringvalue="org.cantact.ui.IsotpTopComponent"/>
+                    <attr name="settings.instanceOf" stringvalue="org.cantact.ui.IsotpTopComponent"/>
+                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
+                </file>
+                <file name="Live.instance">
+                    <!--org.cantact.ui.LiveTopComponent-->
+                    <attr methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
+                    <attr methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
+                    <attr name="settings.instanceClass" stringvalue="org.cantact.ui.LiveTopComponent"/>
+                    <attr name="settings.instanceOf" stringvalue="org.cantact.ui.LiveTopComponent"/>
+                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
+                </file>
+                <file name="Script.instance">
+                    <!--org.cantact.ui.ScriptTopComponent-->
+                    <attr methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
+                    <attr methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
+                    <attr name="settings.instanceClass" stringvalue="org.cantact.ui.ScriptTopComponent"/>
+                    <attr name="settings.instanceOf" stringvalue="org.cantact.ui.ScriptTopComponent"/>
+                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
+                </file>
+                <file name="Trace.instance">
+                    <!--org.cantact.ui.TraceTopComponent-->
+                    <attr methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
+                    <attr methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
+                    <attr name="settings.instanceClass" stringvalue="org.cantact.ui.TraceTopComponent"/>
+                    <attr name="settings.instanceOf" stringvalue="org.cantact.ui.TraceTopComponent"/>
+                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
+                </file>
+                <file name="Transmit.instance">
+                    <!--org.cantact.ui.TransmitTopComponent-->
+                    <attr methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
+                    <attr methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
+                    <attr name="settings.instanceClass" stringvalue="org.cantact.ui.TransmitTopComponent"/>
+                    <attr name="settings.instanceOf" stringvalue="org.cantact.ui.TransmitTopComponent"/>
+                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="org-cantact-ui-ConfigTopComponent.shadow">
+                <!--org.cantact.ui.ConfigTopComponent-->
+                <attr name="originalFile" stringvalue="Actions/Window/org-cantact-ui-ConfigTopComponent.instance"/>
+            </file>
+            <file name="org-cantact-ui-ISOTPTopComponent.shadow">
+                <!--org.cantact.ui.IsotpTopComponent-->
+                <attr name="originalFile" stringvalue="Actions/Window/org-cantact-ui-ISOTPTopComponent.instance"/>
+            </file>
+            <file name="org-cantact-ui-LiveTopComponent.shadow">
+                <!--org.cantact.ui.LiveTopComponent-->
+                <attr name="originalFile" stringvalue="Actions/Window/org-cantact-ui-LiveTopComponent.instance"/>
+            </file>
+            <file name="org-cantact-ui-ScriptTopComponent.shadow">
+                <!--org.cantact.ui.ScriptTopComponent-->
+                <attr name="originalFile" stringvalue="Actions/Window/org-cantact-ui-ScriptTopComponent.instance"/>
+            </file>
+            <file name="org-cantact-ui-TraceTopComponent.shadow">
+                <!--org.cantact.ui.TraceTopComponent-->
+                <attr name="originalFile" stringvalue="Actions/Window/org-cantact-ui-TraceTopComponent.instance"/>
+            </file>
+            <file name="org-cantact-ui-TransmitTopComponent.shadow">
+                <!--org.cantact.ui.TransmitTopComponent-->
+                <attr name="originalFile" stringvalue="Actions/Window/org-cantact-ui-TransmitTopComponent.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="ConfigTopComponent.settings">
+                <!--org.cantact.ui.ConfigTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+  <instance class="org.cantact.ui.ConfigTopComponent"/>
+</settings>
+]]></file>
+            <file name="ISOTPTopComponent.settings">
+                <!--org.cantact.ui.IsotpTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+  <instance class="org.cantact.ui.IsotpTopComponent"/>
+</settings>
+]]></file>
+            <file name="LiveTopComponent.settings">
+                <!--org.cantact.ui.LiveTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+  <instance class="org.cantact.ui.LiveTopComponent"/>
+</settings>
+]]></file>
+            <file name="ScriptTopComponent.settings">
+                <!--org.cantact.ui.ScriptTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+  <instance class="org.cantact.ui.ScriptTopComponent"/>
+</settings>
+]]></file>
+            <file name="TraceTopComponent.settings">
+                <!--org.cantact.ui.TraceTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+  <instance class="org.cantact.ui.TraceTopComponent"/>
+</settings>
+]]></file>
+            <file name="TransmitTopComponent.settings">
+                <!--org.cantact.ui.TransmitTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
+<settings version="1.0">
+  <instance class="org.cantact.ui.TransmitTopComponent"/>
+</settings>
+]]></file>
+            <file name="favorites.settings_hidden"/>
+            <file name="properties.settings_hidden"/>
+            <file name="search-results.settings_hidden"/>
+        </folder>
+        <folder name="Modes">            
+            <folder name="leftSlidingSide">
+                <file name="ConfigTopComponent.wstcref">
+                    <!--org.cantact.ui.ConfigTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
+<tc-ref version="2.0">
+  <tc-id id="ConfigTopComponent"/>
+  <state opened="true"/>
+</tc-ref>
+]]></file>
+                <file name="TransmitTopComponent.wstcref">
+                    <!--org.cantact.ui.TransmitTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
+<tc-ref version="2.0">
+  <tc-id id="TransmitTopComponent"/>
+  <state opened="true"/>
+</tc-ref>
+]]></file>
+            </folder>
+            <folder name="rightSlidingSide">
+                <file name="ISOTPTopComponent.wstcref">
+                    <!--org.cantact.ui.IsotpTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
+<tc-ref version="2.0">
+  <tc-id id="ISOTPTopComponent"/>
+  <state opened="false"/>
+</tc-ref>
+]]></file>
+            </folder>
+            <folder name="editor">
+                <file name="LiveTopComponent.wstcref">
+                    <!--org.cantact.ui.LiveTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
+<tc-ref version="2.0">
+  <tc-id id="LiveTopComponent"/>
+  <state opened="false"/>
+</tc-ref>
+]]></file>
+                <file name="ScriptTopComponent.wstcref">
+                    <!--org.cantact.ui.ScriptTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
+<tc-ref version="2.0">
+  <tc-id id="ScriptTopComponent"/>
+  <state opened="false"/>
+</tc-ref>
+]]></file>
+                <file name="TraceTopComponent.wstcref">
+                    <!--org.cantact.ui.TraceTopComponent--><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tc-ref PUBLIC "-//NetBeans//DTD Top Component in Mode Properties 2.0//EN" "http://www.netbeans.org/dtds/tc-ref2_0.dtd">
+<tc-ref version="2.0">
+  <tc-id id="TraceTopComponent"/>
+  <state opened="false"/>
+</tc-ref>
+]]></file>
+            </folder>
+        </folder>
+        <file name="WindowManager.wswmgr" url="WindowManager.wswmgr"/>
+    </folder>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="org-cantact-ui-ConfigTopComponent.instance">
+                <!--org.cantact.ui.ConfigTopComponent-->
+                <attr methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
+                <attr name="component" newvalue="org.cantact.ui.ConfigTopComponent"/>
+                <attr name="preferredID" stringvalue="ConfigTopComponent"/>
+                <attr bundlevalue="org.cantact.ui.Bundle#CTL_ConfigAction" name="displayName"/>
+            </file>
+            <file name="org-cantact-ui-ISOTPTopComponent.instance">
+                <!--org.cantact.ui.IsotpTopComponent-->
+                <attr methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
+                <attr name="component" newvalue="org.cantact.ui.IsotpTopComponent"/>
+                <attr name="preferredID" stringvalue="ISOTPTopComponent"/>
+                <attr bundlevalue="org.cantact.ui.Bundle#CTL_ISOTPAction" name="displayName"/>
+            </file>
+            <file name="org-cantact-ui-LiveTopComponent.instance">
+                <!--org.cantact.ui.LiveTopComponent-->
+                <attr methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
+                <attr name="component" newvalue="org.cantact.ui.LiveTopComponent"/>
+                <attr name="preferredID" stringvalue="LiveTopComponent"/>
+                <attr bundlevalue="org.cantact.ui.Bundle#CTL_LiveAction" name="displayName"/>
+            </file>
+            <file name="org-cantact-ui-ScriptTopComponent.instance">
+                <!--org.cantact.ui.ScriptTopComponent-->
+                <attr methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
+                <attr name="component" newvalue="org.cantact.ui.ScriptTopComponent"/>
+                <attr name="preferredID" stringvalue="ScriptTopComponent"/>
+                <attr bundlevalue="org.cantact.ui.Bundle#CTL_ScriptAction" name="displayName"/>
+            </file>
+            <file name="org-cantact-ui-TraceTopComponent.instance">
+                <!--org.cantact.ui.TraceTopComponent-->
+                <attr methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
+                <attr name="component" newvalue="org.cantact.ui.TraceTopComponent"/>
+                <attr name="preferredID" stringvalue="TraceTopComponent"/>
+                <attr bundlevalue="org.cantact.ui.Bundle#CTL_TraceAction" name="displayName"/>
+            </file>
+            <file name="org-cantact-ui-TransmitTopComponent.instance">
+                <!--org.cantact.ui.TransmitTopComponent-->
+                <attr methodvalue="org.openide.windows.TopComponent.openAction" name="instanceCreate"/>
+                <attr name="component" newvalue="org.cantact.ui.TransmitTopComponent"/>
+                <attr name="preferredID" stringvalue="TransmitTopComponent"/>
+                <attr bundlevalue="org.cantact.ui.Bundle#CTL_TransmitAction" name="displayName"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

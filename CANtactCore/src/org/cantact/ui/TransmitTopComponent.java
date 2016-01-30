@@ -26,7 +26,7 @@ import org.openide.util.NbBundle.Messages;
         //iconBase="SET/PATH/TO/ICON/HERE", 
         persistenceType = TopComponent.PERSISTENCE_ALWAYS
 )
-@TopComponent.Registration(mode = "leftSlidingSide", openAtStartup = false)
+@TopComponent.Registration(mode = "leftSlidingSide", openAtStartup = true)
 @ActionID(category = "Window", id = "org.cantact.ui.TransmitTopComponent")
 @ActionReference(path = "Menu/Window" /*, position = 333 */)
 @TopComponent.OpenActionRegistration(

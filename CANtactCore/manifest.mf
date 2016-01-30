@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 AutoUpdate-Show-In-Client: true
 OpenIDE-Module: org.cantact.core
+OpenIDE-Module-Layer: org/cantact/ui/layer.xml
 OpenIDE-Module-Localizing-Bundle: org/cantact/core/Bundle.properties
 OpenIDE-Module-Requires: 
   org.openide.windows.IOProvider,

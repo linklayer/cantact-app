@@ -66,8 +66,8 @@ public final class ConfigTopComponent extends TopComponent {
     private void initComponents() {
 
         startButton = new javax.swing.JButton();
-        portComboBox = new javax.swing.JComboBox();
-        bitRateComboBox = new javax.swing.JComboBox();
+        portComboBox = new javax.swing.JComboBox<String>();
+        bitRateComboBox = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
@@ -197,10 +197,10 @@ public final class ConfigTopComponent extends TopComponent {
     }//GEN-LAST:event_stopButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox bitRateComboBox;
+    private javax.swing.JComboBox<String> bitRateComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JComboBox portComboBox;
+    private javax.swing.JComboBox<String> portComboBox;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton startButton;
     private javax.swing.JButton stopButton;
