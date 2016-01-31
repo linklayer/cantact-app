@@ -5,6 +5,7 @@ Network systems from the desktop. It is primarily intended to be used with the
 [CANtact hardware](https://github.com/linklayer/cantact-hw), but should work
 with any device that uses the LAWICEL protocol.
 
+## Screenshot
 ![CANtact Screenshot](https://raw.github.com/linklayer/cantact-app/master/cantact-screenshot.png)
 
 ## Features
@@ -12,9 +13,10 @@ with any device that uses the LAWICEL protocol.
 - Live display, showing the most recent data for each frame
 - Simple transmission of CAN frames
 - Javascript scripting interface
+- ISOTP transmit and receive
 
 ## TODO
-- ISOTP, OBD-II, and UDS protocol implementations (in progress)
+- OBD-II, and UDS protocol implementations
 - Saving, loading, and playing of CAN logs
 - CAN databases and signal decoding
 - etc...
