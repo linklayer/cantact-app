@@ -5,6 +5,8 @@ Network systems from the desktop. It is primarily intended to be used with the
 [CANtact hardware](https://github.com/linklayer/cantact-hw), but should work
 with any device that uses the LAWICEL protocol.
 
+![CANtact Screenshot](https://raw.github.com/linklayer/cantact-app/master/cantact-screenshot.png)
+
 ## Features
 - Display of CAN bus trace
 - Live display, showing the most recent data for each frame
