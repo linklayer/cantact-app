@@ -5,6 +5,9 @@
  */
 package org.cantact.ui;
 
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
@@ -15,6 +18,7 @@ import org.openide.util.NbBundle.Messages;
 import org.cantact.core.CanListener;
 import org.cantact.core.CanFrame;
 import org.cantact.core.DeviceManager;
+import org.openide.util.Utilities;
 /**
  * Top component which displays something.
  */
@@ -41,6 +45,7 @@ import org.cantact.core.DeviceManager;
 })
 public final class TraceTopComponent extends TopComponent implements CanListener {
     private int count = 0;
+    private boolean running = false;
     public TraceTopComponent() {
         initComponents();
         setName(Bundle.CTL_TraceTopComponent());
@@ -67,7 +72,9 @@ public final class TraceTopComponent extends TopComponent implements CanListener
     
     @Override
     public void canReceived(CanFrame f) {
-        java.awt.EventQueue.invokeLater(new TraceUpdater(f));
+        if (running) {
+            java.awt.EventQueue.invokeLater(new TraceUpdater(f));
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,6 +86,9 @@ public final class TraceTopComponent extends TopComponent implements CanListener
 
         jScrollPane1 = new javax.swing.JScrollPane();
         messageTable = new javax.swing.JTable();
+        startButton = new javax.swing.JButton();
+        stopButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
 
         messageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,6 +108,27 @@ public final class TraceTopComponent extends TopComponent implements CanListener
         });
         jScrollPane1.setViewportView(messageTable);
 
+        org.openide.awt.Mnemonics.setLocalizedText(startButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.startButton.text")); // NOI18N
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(stopButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.stopButton.text")); // NOI18N
+        stopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stopButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(saveButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.saveButton.text")); // NOI18N
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,19 +137,63 @@ public final class TraceTopComponent extends TopComponent implements CanListener
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(startButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(stopButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveButton)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(startButton)
+                    .addComponent(stopButton)
+                    .addComponent(saveButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        /* clear the table */
+        DefaultTableModel messageModel = (DefaultTableModel) messageTable.getModel();
+        while (messageModel.getRowCount() > 0) {
+            for (int i = 0; i < messageModel.getRowCount(); i++) {
+                messageModel.removeRow(i);
+            }
+        }
+        count = 0;
+                
+        /* set running flag, start receiving messages */
+        running = true;
+    }//GEN-LAST:event_startButtonActionPerformed
+
+    private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
+        /* clear running flag, stop receiving messages */
+        running = false;
+    }//GEN-LAST:event_stopButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("ASCII Logs", "asc");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            // TODO: save
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable messageTable;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JButton startButton;
+    private javax.swing.JButton stopButton;
     // End of variables declaration//GEN-END:variables
     @Override
     public void componentOpened() {

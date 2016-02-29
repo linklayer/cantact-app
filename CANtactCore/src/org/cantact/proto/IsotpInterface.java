@@ -32,7 +32,7 @@ public class IsotpInterface implements CanListener {
     private int[] rxData;
     private int rxDataIndex;
     private int rxSerialNumber;
-    private int rxBlockSize;
+    private int rxBlockSize = 4095;
     private int rxBlockIndex;
 
     private final IsotpCallback callback; 
@@ -109,7 +109,7 @@ public class IsotpInterface implements CanListener {
         int[] frameData;
         // how many frames should be sent?
         int framesToSend = Math.min(txBlockSize,
-            (txData.length - txDataIndex) / 7);
+            ((txData.length - txDataIndex) / 7) + 1);
         for (int i = 0; i < framesToSend; i++) {
             CanFrame cf = new CanFrame();
             cf.setDlc(8);
