@@ -5,6 +5,8 @@
  */
 package org.cantact.ui;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -19,6 +21,7 @@ import org.cantact.core.CanListener;
 import org.cantact.core.CanFrame;
 import org.cantact.core.DeviceManager;
 import org.openide.util.Utilities;
+
 /**
  * Top component which displays something.
  */
@@ -44,38 +47,47 @@ import org.openide.util.Utilities;
     "HINT_TraceTopComponent=This is a Trace window"
 })
 public final class TraceTopComponent extends TopComponent implements CanListener {
-    private int count = 0;
+
+    private long startTime = 0;
     private boolean running = false;
+
     public TraceTopComponent() {
         initComponents();
         setName(Bundle.CTL_TraceTopComponent());
         setToolTipText(Bundle.HINT_TraceTopComponent());
         DeviceManager.addListener(this);
     }
-    
+
     class TraceUpdater implements Runnable {
+
         private CanFrame frame;
+
         public TraceUpdater(CanFrame f) {
             frame = f;
         }
+
         public void run() {
-            count++;
+            /* calculate the relative timestamp in seconds */
+            float timestamp = (float) (System.currentTimeMillis() - startTime) / 1000;
+
             String dataString = "";
             for (int i = 0; i < frame.getDlc(); i++) {
                 dataString = dataString + String.format("%02X ", frame.getData()[i]);
             }
+
             DefaultTableModel messageModel = (DefaultTableModel) messageTable.getModel();
-            Object[] rowData = {(Object)count, (Object)frame.getId(), (Object)frame.getDlc(), dataString};
+            Object[] rowData = {(Object) timestamp, (Object) frame.getId(), (Object) frame.getDlc(), dataString};
             messageModel.insertRow(0, rowData);
         }
     }
-    
+
     @Override
     public void canReceived(CanFrame f) {
         if (running) {
             java.awt.EventQueue.invokeLater(new TraceUpdater(f));
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,11 +107,11 @@ public final class TraceTopComponent extends TopComponent implements CanListener
 
             },
             new String [] {
-                "#", "ID", "DLC", "Data"
+                "Timestamp", "ID", "DLC", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -116,6 +128,7 @@ public final class TraceTopComponent extends TopComponent implements CanListener
         });
 
         org.openide.awt.Mnemonics.setLocalizedText(stopButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.stopButton.text")); // NOI18N
+        stopButton.setEnabled(false);
         stopButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stopButtonActionPerformed(evt);
@@ -167,24 +180,57 @@ public final class TraceTopComponent extends TopComponent implements CanListener
                 messageModel.removeRow(i);
             }
         }
-        count = 0;
-                
+
+        /* set the relative start time to now */
+        startTime = System.currentTimeMillis();
         /* set running flag, start receiving messages */
         running = true;
+
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
         /* clear running flag, stop receiving messages */
         running = false;
+
+        stopButton.setEnabled(false);
+        startButton.setEnabled(true);
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("ASCII Logs", "asc");
         chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            // TODO: save
+        int returnVal = chooser.showSaveDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            /* save table contents as file */
+            FileWriter os;
+            try {
+                os = new FileWriter(chooser.getSelectedFile());
+
+                /* get the model of the table */
+                DefaultTableModel model = (DefaultTableModel) messageTable.getModel();
+
+                /* iterate backwards from the oldest ot newest message */
+                for (int row = model.getRowCount() - 1; row >= 0; row--) {
+                    /* get the values from the table model */
+                    float timestamp = (float) model.getValueAt(row, 0);
+                    int id = (int) model.getValueAt(row, 1);
+                    //int dlc = (int)model.getValueAt(row, 2);
+                    String data = (String) model.getValueAt(row, 3);
+
+                    /* create candump formatted string */
+                    data = data.replace(" ", "");
+                    String out = String.format("(%05f) can0 %03X#%s\n",
+                            timestamp, id, data);
+                    os.write(out);
+                }
+                os.close();
+            } catch (IOException e) {
+                System.out.println("error writing file");
+            }
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
