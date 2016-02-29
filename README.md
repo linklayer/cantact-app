@@ -14,9 +14,8 @@ with any device that uses the LAWICEL protocol.
 - Simple transmission of CAN frames
 - Javascript scripting interface
 - ISOTP transmit and receive
+- Saving of CAN traces (in candump format)
 
 ## TODO
 - OBD-II, and UDS protocol implementations
-- Saving, loading, and playing of CAN logs
 - CAN databases and signal decoding
-- etc...
