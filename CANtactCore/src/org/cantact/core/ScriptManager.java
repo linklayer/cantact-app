@@ -5,6 +5,9 @@
  */
 package org.cantact.core;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -16,11 +19,13 @@ import org.openide.windows.InputOutput;
  *
  * @author eric
  */
-public class ScriptManager implements CanListener {   
+public class ScriptManager implements CanListener {
+
     ScriptEngine engine;
-    InputOutput io = IOProvider.getDefault().getIO ("Scripting", true);
+    InputOutput io = IOProvider.getDefault().getIO("Scripting", true);
+    Future<Object> scriptFuture;
     boolean isRunning;
-    
+
     public ScriptManager() {
         // initialize the scripting engine
         engine = new ScriptEngineManager().getEngineByName("nashorn");
@@ -28,23 +33,35 @@ public class ScriptManager implements CanListener {
         engine.getContext().setWriter(io.getOut());
         isRunning = false;
     }
-    
-    public void runScript(String script) {
-        try {
-            isRunning = true;
-            engine.eval(script);
-        } catch (ScriptException e) {
-            // log error into output console
-            io.getErr().println("Script Error: " + e.toString());
-            isRunning = false;
-        }
+
+    public void runScript(final String script) {
+
+        isRunning = true;
+        final Callable<Object> c = new Callable<Object>() {
+            @Override
+            public Object call() throws Exception {
+                Object result = null;
+                try {
+                    result = engine.eval(script);
+                } catch (ScriptException e) {
+                    // log error into output console
+                    io.getErr().println("Script Error: " + e.toString());
+                    stopScript();
+                }
+                return result;
+            }
+        };
+        scriptFuture = Executors.newCachedThreadPool().submit(c);
+        
     }
-    
+
     @Override
     public void canReceived(CanFrame f) {
         // do nothing if not running script
-        if (!isRunning) return;
-        
+        if (!isRunning) {
+            return;
+        }
+
         Invocable invocable = (Invocable) engine;
         try {
             // call script's callback function
@@ -58,7 +75,10 @@ public class ScriptManager implements CanListener {
     }
 
     public void stopScript() {
-        isRunning = false;
+        if (isRunning) {
+            isRunning = false;
+            scriptFuture.cancel(true);
+        }
     }
-    
+
 }
