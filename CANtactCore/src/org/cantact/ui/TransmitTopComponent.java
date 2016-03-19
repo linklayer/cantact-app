@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cantact.ui;
 
 import org.cantact.core.CanFrame;
 import org.cantact.core.DeviceManager;
-import org.cantact.proto.IsotpInterface;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;

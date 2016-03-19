@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cantact.ui;
 
+import org.cantact.core.DeviceManager;
 import org.cantact.proto.IsotpInterface;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
@@ -57,6 +53,7 @@ public final class IsotpTopComponent extends TopComponent {
         setToolTipText(Bundle.HINT_ISOTPTopComponent());
         receiveHandler = new IsotpReceiveHandler();
         isotp = new IsotpInterface(-1, -2, receiveHandler);
+        DeviceManager.addListener(isotp);
     }
 
     /**
@@ -158,8 +155,8 @@ public final class IsotpTopComponent extends TopComponent {
             data[dataCount] = Integer.decode(b);
             dataCount++;
         }
-        isotp.setReceiveId(Integer.decode(receiveIdField.getText()));
-        isotp.setTransmitId(Integer.decode(transmitIdField.getText()));
+        isotp.setRxId(Integer.decode(receiveIdField.getText()));
+        isotp.setTxId(Integer.decode(transmitIdField.getText()));
         isotp.send(data);
     }//GEN-LAST:event_sendButtonActionPerformed
 

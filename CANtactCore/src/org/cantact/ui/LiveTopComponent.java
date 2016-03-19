@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cantact.ui;
 
 import java.awt.Color;
@@ -212,6 +207,7 @@ public final class LiveTopComponent extends TopComponent implements CanListener 
         });
         jScrollPane2.setViewportView(liveTable);
 
+        jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
 
         org.openide.awt.Mnemonics.setLocalizedText(clearButton, org.openide.util.NbBundle.getMessage(LiveTopComponent.class, "LiveTopComponent.clearButton.text")); // NOI18N

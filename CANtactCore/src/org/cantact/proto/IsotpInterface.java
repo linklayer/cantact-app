@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cantact.proto;
 
 import org.cantact.core.CanFrame;
 import org.cantact.core.CanListener;
 import org.cantact.core.DeviceManager;
 
-/**
- *
- * @author eric
- */
 enum IsotpState {
 
     IDLE, IN_TX, TX_WAIT_FC, IN_RX
@@ -38,7 +29,6 @@ public class IsotpInterface implements CanListener {
     private final IsotpCallback callback; 
     
     public IsotpInterface(int txCanId, int rxCanId, IsotpCallback cb) {
-        DeviceManager.addListener(this);
         state = IsotpState.IDLE;
         txId = txCanId;
         rxId = rxCanId;
@@ -241,18 +231,30 @@ public class IsotpInterface implements CanListener {
                     rxSerialNumber++;
                     rxSerialNumber %= 0x0F;
                 }
+            } else if(frameType == 3) {
+                // we have received our own flow control frame, do nothing
             } else {
                 state = IsotpState.IDLE;
             }
         }
     }
 
-    public void setReceiveId(Integer id) {
+    public void setRxId(Integer id) {
         rxId = id;
     }
+    public int getRxId() {
+        return rxId;
+    }
 
-    public void setTransmitId(Integer id) {
+    public void setTxId(Integer id) {
         txId = id;
+    }
+   public int getTxId() {
+        return txId;
+    }
+   
+    public void reset() {
+        state = IsotpState.IDLE;
     }
     
     public interface IsotpCallback {

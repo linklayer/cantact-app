@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cantact.ui;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
@@ -20,7 +14,6 @@ import org.openide.util.NbBundle.Messages;
 import org.cantact.core.CanListener;
 import org.cantact.core.CanFrame;
 import org.cantact.core.DeviceManager;
-import org.openide.util.Utilities;
 
 /**
  * Top component which displays something.
@@ -98,6 +91,7 @@ public final class TraceTopComponent extends TopComponent implements CanListener
 
         jScrollPane1 = new javax.swing.JScrollPane();
         messageTable = new javax.swing.JTable();
+        jToolBar1 = new javax.swing.JToolBar();
         startButton = new javax.swing.JButton();
         stopButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
@@ -120,33 +114,43 @@ public final class TraceTopComponent extends TopComponent implements CanListener
         });
         jScrollPane1.setViewportView(messageTable);
 
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+
         startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cantact/ui/record.png"))); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(startButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.startButton.text")); // NOI18N
-        startButton.setMaximumSize(new java.awt.Dimension(50, 50));
-        startButton.setMinimumSize(new java.awt.Dimension(50, 50));
+        startButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        startButton.setMinimumSize(new java.awt.Dimension(30, 30));
         startButton.setPreferredSize(new java.awt.Dimension(50, 50));
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(startButton);
 
         stopButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cantact/ui/stop.png"))); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(stopButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.stopButton.text")); // NOI18N
         stopButton.setEnabled(false);
+        stopButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        stopButton.setMinimumSize(new java.awt.Dimension(30, 30));
         stopButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stopButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(stopButton);
 
         saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cantact/ui/save.png"))); // NOI18N
         org.openide.awt.Mnemonics.setLocalizedText(saveButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.saveButton.text")); // NOI18N
+        saveButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        saveButton.setMinimumSize(new java.awt.Dimension(30, 30));
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
             }
         });
+        jToolBar1.add(saveButton);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -155,27 +159,18 @@ public final class TraceTopComponent extends TopComponent implements CanListener
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(stopButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveButton)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(stopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -244,6 +239,7 @@ public final class TraceTopComponent extends TopComponent implements CanListener
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable messageTable;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton startButton;

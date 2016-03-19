@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.cantact.ui;
 
 import org.netbeans.api.settings.ConvertAsProperties;
@@ -164,9 +159,11 @@ public final class ConfigTopComponent extends TopComponent {
             return;
         }
         int speed = this.bitRateComboBox.getSelectedIndex();
+
+        DeviceManager.openDevice(portName, speed);
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
-        DeviceManager.openDevice(portName, speed); 
+        
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
