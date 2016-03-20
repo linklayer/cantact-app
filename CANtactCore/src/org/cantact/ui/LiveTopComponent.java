@@ -209,6 +209,9 @@ public final class LiveTopComponent extends TopComponent implements CanListener 
 
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
+        jToolBar2.setMaximumSize(new java.awt.Dimension(98, 34));
+        jToolBar2.setMinimumSize(new java.awt.Dimension(98, 34));
+        jToolBar2.setPreferredSize(new java.awt.Dimension(110, 54));
 
         org.openide.awt.Mnemonics.setLocalizedText(clearButton, org.openide.util.NbBundle.getMessage(LiveTopComponent.class, "LiveTopComponent.clearButton.text")); // NOI18N
         clearButton.setFocusable(false);
