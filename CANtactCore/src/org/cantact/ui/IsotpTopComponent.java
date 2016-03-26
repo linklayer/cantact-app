@@ -77,7 +77,6 @@ public final class IsotpTopComponent extends TopComponent {
 
         setLayout(new java.awt.GridBagLayout());
 
-        receiveTextArea.setEditable(false);
         receiveTextArea.setColumns(20);
         receiveTextArea.setLineWrap(true);
         receiveTextArea.setRows(5);

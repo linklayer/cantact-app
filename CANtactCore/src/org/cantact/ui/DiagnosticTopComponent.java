@@ -6,6 +6,7 @@
 package org.cantact.ui;
 
 import java.awt.CardLayout;
+import org.cantact.proto.UdsClient;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -38,11 +39,13 @@ import org.openide.util.NbBundle.Messages;
 })
 public final class DiagnosticTopComponent extends TopComponent {
 
+    private final UdsClient udsClient;
+
     public DiagnosticTopComponent() {
         initComponents();
         setName(Bundle.CTL_DiagnosticTopComponent());
         setToolTipText(Bundle.HINT_DiagnosticTopComponent());
-
+        udsClient = new UdsClient(0, 0);
     }
 
     /**
@@ -68,6 +71,8 @@ public final class DiagnosticTopComponent extends TopComponent {
         obdPidField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         obdRequestButton = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         diagnosticSessionControlPanel = new javax.swing.JPanel();
         diagnosticSessionComboBox = new javax.swing.JComboBox();
         diagnosticSessionField = new javax.swing.JTextField();
@@ -106,6 +111,10 @@ public final class DiagnosticTopComponent extends TopComponent {
         readDataByIdField = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         readDataByIdRequestButton = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
         writeDataByIdPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         writeDataByIdIdentifierField = new javax.swing.JTextField();
@@ -113,11 +122,17 @@ public final class DiagnosticTopComponent extends TopComponent {
         writeDataByIdValueField = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         writeDataByIdRequestButton = new javax.swing.JButton();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
         clearDiagnosticInformationPanel = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         clearDiagnosticInformationMaskField = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         clearDiagnosticInformationRequestButton = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
         routineControlPanel = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         routineControlTypeComboBox = new javax.swing.JComboBox();
@@ -140,12 +155,20 @@ public final class DiagnosticTopComponent extends TopComponent {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel1.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(jLabel1, gridBagConstraints);
 
+        transmitIdField.setColumns(4);
         transmitIdField.setText(org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.transmitIdField.text")); // NOI18N
+        transmitIdField.setSize(new java.awt.Dimension(14, 28));
+        transmitIdField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transmitIdFieldActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.weighty = 0.75;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(transmitIdField, gridBagConstraints);
 
@@ -157,11 +180,18 @@ public final class DiagnosticTopComponent extends TopComponent {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(jLabel2, gridBagConstraints);
 
+        receiveIdField.setColumns(4);
         receiveIdField.setText(org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.receiveIdField.text")); // NOI18N
+        receiveIdField.setSize(new java.awt.Dimension(14, 28));
+        receiveIdField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receiveIdFieldActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.weighty = 0.75;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(receiveIdField, gridBagConstraints);
 
@@ -169,7 +199,7 @@ public final class DiagnosticTopComponent extends TopComponent {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(jLabel3, gridBagConstraints);
 
@@ -182,18 +212,19 @@ public final class DiagnosticTopComponent extends TopComponent {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         add(serviceComboBox, gridBagConstraints);
 
         servicePanel.setLayout(new java.awt.CardLayout());
 
-        obdPanel.setLayout(new java.awt.GridLayout(3, 0));
+        obdPanel.setLayout(new java.awt.GridLayout(6, 2));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel4.text")); // NOI18N
         obdPanel.add(jLabel4);
 
-        obdModeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01 - Show Current Data", "02 - Show Freeze Frame Data", "03 - Show Stored DTCs", "04 - Clear DTCs", "06 - Test Results", "07 - Show Pending DTCs", "08 - Control Operation", "09 - Request Vehicle Info", "0A - Permanent DTCs" }));
+        obdModeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0x01 - Show Current Data", "0x02 - Show Freeze Frame Data", "0x03 - Show Stored DTCs", "0x04 - Clear DTCs", "0x06 - Test Results", "0x07 - Show Pending DTCs", "0x08 - Control Operation", "0x09 - Request Vehicle Info", "0x0A - Permanent DTCs" }));
         obdPanel.add(obdModeComboBox);
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel5.text")); // NOI18N
@@ -206,7 +237,18 @@ public final class DiagnosticTopComponent extends TopComponent {
         obdPanel.add(jLabel6);
 
         org.openide.awt.Mnemonics.setLocalizedText(obdRequestButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.obdRequestButton.text")); // NOI18N
+        obdRequestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                obdRequestButtonActionPerformed(evt);
+            }
+        });
         obdPanel.add(obdRequestButton);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel28, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel28.text")); // NOI18N
+        obdPanel.add(jLabel28);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel29, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel29.text")); // NOI18N
+        obdPanel.add(jLabel29);
 
         servicePanel.add(obdPanel, "obdCard");
 
@@ -216,10 +258,14 @@ public final class DiagnosticTopComponent extends TopComponent {
         diagnosticSessionControlPanel.add(diagnosticSessionComboBox);
 
         diagnosticSessionField.setText(org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.diagnosticSessionField.text")); // NOI18N
-        diagnosticSessionField.setEnabled(false);
         diagnosticSessionControlPanel.add(diagnosticSessionField);
 
         org.openide.awt.Mnemonics.setLocalizedText(diagnosticSessionControlRequestButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.diagnosticSessionControlRequestButton.text")); // NOI18N
+        diagnosticSessionControlRequestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diagnosticSessionControlRequestButtonActionPerformed(evt);
+            }
+        });
         diagnosticSessionControlPanel.add(diagnosticSessionControlRequestButton);
 
         servicePanel.add(diagnosticSessionControlPanel, "diagnosticSessionControlCard");
@@ -230,10 +276,14 @@ public final class DiagnosticTopComponent extends TopComponent {
         ecuResetPanel.add(ecuResetTypeComboBox);
 
         ecuResetTypeField.setText(org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.ecuResetTypeField.text")); // NOI18N
-        ecuResetTypeField.setEnabled(false);
         ecuResetPanel.add(ecuResetTypeField);
 
         org.openide.awt.Mnemonics.setLocalizedText(ecuResetRequestButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.ecuResetRequestButton.text")); // NOI18N
+        ecuResetRequestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ecuResetRequestButtonActionPerformed(evt);
+            }
+        });
         ecuResetPanel.add(ecuResetRequestButton);
 
         servicePanel.add(ecuResetPanel, "ecuResetCard");
@@ -256,6 +306,11 @@ public final class DiagnosticTopComponent extends TopComponent {
         securityAccessPanel.add(jLabel9);
 
         org.openide.awt.Mnemonics.setLocalizedText(securityAccessRequestSeedButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.securityAccessRequestSeedButton.text")); // NOI18N
+        securityAccessRequestSeedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                securityAccessRequestSeedButtonActionPerformed(evt);
+            }
+        });
         securityAccessPanel.add(securityAccessRequestSeedButton);
         securityAccessPanel.add(jSeparator1);
         securityAccessPanel.add(jSeparator2);
@@ -270,6 +325,11 @@ public final class DiagnosticTopComponent extends TopComponent {
         securityAccessPanel.add(jLabel11);
 
         org.openide.awt.Mnemonics.setLocalizedText(securityAccessSendKeyButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.securityAccessSendKeyButton.text")); // NOI18N
+        securityAccessSendKeyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                securityAccessSendKeyButtonActionPerformed(evt);
+            }
+        });
         securityAccessPanel.add(securityAccessSendKeyButton);
 
         servicePanel.add(securityAccessPanel, "securityAccessCard");
@@ -286,7 +346,6 @@ public final class DiagnosticTopComponent extends TopComponent {
         communicationControlPanel.add(jLabel13);
 
         communicationControlTypeField.setText(org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.communicationControlTypeField.text")); // NOI18N
-        communicationControlTypeField.setEnabled(false);
         communicationControlPanel.add(communicationControlTypeField);
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel15, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel15.text")); // NOI18N
@@ -318,24 +377,40 @@ public final class DiagnosticTopComponent extends TopComponent {
 
         servicePanel.add(testerPresentPanel, "testerPresentCard");
 
-        readDataByIdPanel.setLayout(new java.awt.GridLayout(3, 2));
+        readDataByIdPanel.setLayout(new java.awt.GridLayout(6, 2));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel17, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel17.text")); // NOI18N
         readDataByIdPanel.add(jLabel17);
 
         readDataByIdField.setText(org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.readDataByIdField.text")); // NOI18N
-        readDataByIdField.setEnabled(false);
         readDataByIdPanel.add(readDataByIdField);
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel18, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel18.text")); // NOI18N
         readDataByIdPanel.add(jLabel18);
 
         org.openide.awt.Mnemonics.setLocalizedText(readDataByIdRequestButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.readDataByIdRequestButton.text")); // NOI18N
+        readDataByIdRequestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readDataByIdRequestButtonActionPerformed(evt);
+            }
+        });
         readDataByIdPanel.add(readDataByIdRequestButton);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel34, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel34.text")); // NOI18N
+        readDataByIdPanel.add(jLabel34);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel35, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel35.text")); // NOI18N
+        readDataByIdPanel.add(jLabel35);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel36, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel36.text")); // NOI18N
+        readDataByIdPanel.add(jLabel36);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel37, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel37.text")); // NOI18N
+        readDataByIdPanel.add(jLabel37);
 
         servicePanel.add(readDataByIdPanel, "readDataByIdCard");
 
-        writeDataByIdPanel.setLayout(new java.awt.GridLayout(3, 2));
+        writeDataByIdPanel.setLayout(new java.awt.GridLayout(6, 2));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel19, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel19.text")); // NOI18N
         writeDataByIdPanel.add(jLabel19);
@@ -347,17 +422,29 @@ public final class DiagnosticTopComponent extends TopComponent {
         writeDataByIdPanel.add(jLabel21);
 
         writeDataByIdValueField.setText(org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.writeDataByIdValueField.text")); // NOI18N
+        writeDataByIdValueField.setActionCommand(org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.writeDataByIdValueField.actionCommand")); // NOI18N
         writeDataByIdPanel.add(writeDataByIdValueField);
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel20, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel20.text")); // NOI18N
         writeDataByIdPanel.add(jLabel20);
 
         org.openide.awt.Mnemonics.setLocalizedText(writeDataByIdRequestButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.writeDataByIdRequestButton.text")); // NOI18N
+        writeDataByIdRequestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                writeDataByIdRequestButtonActionPerformed(evt);
+            }
+        });
         writeDataByIdPanel.add(writeDataByIdRequestButton);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel38, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel38.text")); // NOI18N
+        writeDataByIdPanel.add(jLabel38);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel39, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel39.text")); // NOI18N
+        writeDataByIdPanel.add(jLabel39);
 
         servicePanel.add(writeDataByIdPanel, "writeDataByIdCard");
 
-        clearDiagnosticInformationPanel.setLayout(new java.awt.GridLayout(3, 2));
+        clearDiagnosticInformationPanel.setLayout(new java.awt.GridLayout(6, 2));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel22, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel22.text")); // NOI18N
         clearDiagnosticInformationPanel.add(jLabel22);
@@ -369,7 +456,24 @@ public final class DiagnosticTopComponent extends TopComponent {
         clearDiagnosticInformationPanel.add(jLabel23);
 
         org.openide.awt.Mnemonics.setLocalizedText(clearDiagnosticInformationRequestButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.clearDiagnosticInformationRequestButton.text")); // NOI18N
+        clearDiagnosticInformationRequestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearDiagnosticInformationRequestButtonActionPerformed(evt);
+            }
+        });
         clearDiagnosticInformationPanel.add(clearDiagnosticInformationRequestButton);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel30, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel30.text")); // NOI18N
+        clearDiagnosticInformationPanel.add(jLabel30);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel31, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel31.text")); // NOI18N
+        clearDiagnosticInformationPanel.add(jLabel31);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel32, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel32.text")); // NOI18N
+        clearDiagnosticInformationPanel.add(jLabel32);
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel33, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.jLabel33.text")); // NOI18N
+        clearDiagnosticInformationPanel.add(jLabel33);
 
         servicePanel.add(clearDiagnosticInformationPanel, "clearDiagnosticInformationCard");
 
@@ -397,6 +501,11 @@ public final class DiagnosticTopComponent extends TopComponent {
         routineControlPanel.add(jLabel25);
 
         org.openide.awt.Mnemonics.setLocalizedText(routineControlRequestButton, org.openide.util.NbBundle.getMessage(DiagnosticTopComponent.class, "DiagnosticTopComponent.routineControlRequestButton.text")); // NOI18N
+        routineControlRequestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                routineControlRequestButtonActionPerformed(evt);
+            }
+        });
         routineControlPanel.add(routineControlRequestButton);
 
         servicePanel.add(routineControlPanel, "routineControlCard");
@@ -440,10 +549,10 @@ public final class DiagnosticTopComponent extends TopComponent {
                 break;
             case 3:
                 layout.show(servicePanel, "securityAccessCard");
-                break;            
+                break;
             case 4:
                 layout.show(servicePanel, "communicationControlCard");
-                break;            
+                break;
             case 5:
                 layout.show(servicePanel, "testerPresentCard");
                 break;
@@ -452,19 +561,172 @@ public final class DiagnosticTopComponent extends TopComponent {
                 break;
             case 7:
                 layout.show(servicePanel, "writeDataByIdCard");
-                break;                
+                break;
             case 8:
                 layout.show(servicePanel, "clearDiagnosticInformationCard");
-                break;              
+                break;
             case 9:
                 layout.show(servicePanel, "routineControlCard");
-                break;                
+                break;
         }
     }//GEN-LAST:event_serviceComboBoxActionPerformed
 
+    private void setIds() {
+        udsClient.setTxId(Integer.decode(transmitIdField.getText()));
+        udsClient.setRxId(Integer.decode(receiveIdField.getText()));
+    }
+    
     private void sendTesterPresentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendTesterPresentButtonActionPerformed
-        // TODO add your handling code here:
+        setIds();
+        udsClient.TesterPresent();
     }//GEN-LAST:event_sendTesterPresentButtonActionPerformed
+
+    private void obdRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obdRequestButtonActionPerformed
+        int mode, pid;
+
+        try {
+            mode = Integer.decode(obdModeComboBox.getSelectedItem().toString().split("-")[0].trim());
+            pid = Integer.decode(obdPidField.getText());
+        } catch (NumberFormatException e) {
+            // bad parameters, do nothing
+            return;
+        }
+        setIds();
+        udsClient.ObdRequest(mode, pid);
+    }//GEN-LAST:event_obdRequestButtonActionPerformed
+
+    private void diagnosticSessionControlRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diagnosticSessionControlRequestButtonActionPerformed
+        int session;
+        try {
+            if (diagnosticSessionComboBox.getSelectedIndex()
+                    < diagnosticSessionComboBox.getItemCount() - 1) {
+                // item selected has specified value, get it
+                session = Integer.decode(diagnosticSessionComboBox.getSelectedItem().toString().split("-")[0].trim());
+            } else {
+                // other value is specified
+                session = Integer.decode(diagnosticSessionField.getText());
+            }
+        } catch (NumberFormatException e) {
+            // bad paramaters, do nothing
+            return;
+        }
+        setIds();
+        udsClient.DiagnosticSessionControl(session);
+    }//GEN-LAST:event_diagnosticSessionControlRequestButtonActionPerformed
+
+    private void ecuResetRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ecuResetRequestButtonActionPerformed
+        int resetType;
+        try {
+            if (ecuResetTypeComboBox.getSelectedIndex()
+                    < ecuResetTypeComboBox.getItemCount() - 1) {
+                // item selected has specified value, get it
+                resetType = Integer.decode(ecuResetTypeComboBox.getSelectedItem().toString().split("-")[0].trim());
+            } else {
+                // other value is specified
+                resetType = Integer.decode(ecuResetTypeField.getText());
+            }
+        } catch (NumberFormatException e) {
+            // bad paramaters, do nothing
+            return;
+        }
+        setIds();
+        udsClient.EcuReset(resetType);
+    }//GEN-LAST:event_ecuResetRequestButtonActionPerformed
+
+    private void securityAccessRequestSeedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_securityAccessRequestSeedButtonActionPerformed
+        int securityMode;
+        long dataRecord;
+        try {
+            securityMode = Integer.decode(securityAccessSecurityLevelField.getText());
+            dataRecord = Long.decode(securityAccessDataRecordField.getText());
+        } catch (NumberFormatException e) {
+            // bad parameters, do nothing
+            System.out.println("fail");
+            return;
+        }
+        int[] dataRecordArray = UdsClient.longToArray(dataRecord);
+        setIds();
+        udsClient.SecurityAccess(securityMode, dataRecordArray);
+    }//GEN-LAST:event_securityAccessRequestSeedButtonActionPerformed
+
+    private void securityAccessSendKeyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_securityAccessSendKeyButtonActionPerformed
+        int securityMode;
+        long key;
+        try {
+            securityMode = Integer.decode(securityAccessSecurityLevelField.getText());
+            key = Long.decode(securityAccessSecurityKeyField.getText());
+        } catch (NumberFormatException e) {
+            // bad parameters, do nothing
+            return;
+        }
+        int[] securityKeyArray = UdsClient.longToArray(key);
+        setIds();
+        // add 1 to security mode to signify this is a sendKey operation
+        udsClient.SecurityAccess(securityMode + 1, securityKeyArray);
+    }//GEN-LAST:event_securityAccessSendKeyButtonActionPerformed
+
+    private void readDataByIdRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readDataByIdRequestButtonActionPerformed
+        int dataId;
+        try {
+            dataId = Integer.decode(readDataByIdField.getText());
+        } catch (NumberFormatException e) {
+            // bad parameters, do nothing
+            return;
+        }
+        setIds();
+        udsClient.ReadDataByIdentifier(dataId);
+    }//GEN-LAST:event_readDataByIdRequestButtonActionPerformed
+
+    private void writeDataByIdRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_writeDataByIdRequestButtonActionPerformed
+        int dataId;
+        long value;
+        try {
+            dataId = Integer.decode(writeDataByIdIdentifierField.getText());
+            value = Long.decode(writeDataByIdValueField.getText());
+        } catch (NumberFormatException e) {
+            // bad parameters, do nothing
+            return;
+        }
+        int[] valueArray = UdsClient.longToArray(value);
+        setIds();
+        udsClient.WriteDataByIdentifier(dataId, valueArray);
+    }//GEN-LAST:event_writeDataByIdRequestButtonActionPerformed
+
+    private void clearDiagnosticInformationRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearDiagnosticInformationRequestButtonActionPerformed
+        int dtcMask;
+        try {
+            dtcMask = Integer.decode(clearDiagnosticInformationMaskField.getText());
+        } catch (NumberFormatException e) {
+            // bad parameters, do nothing
+            return;
+        }
+        setIds();
+        udsClient.ClearDiagnosticInformation(dtcMask);
+    }//GEN-LAST:event_clearDiagnosticInformationRequestButtonActionPerformed
+
+    private void routineControlRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routineControlRequestButtonActionPerformed
+        int controlType, routineId, optionRecord;
+
+        try {
+            controlType = Integer.decode(routineControlTypeComboBox.getSelectedItem().toString().split("-")[0].trim());
+            routineId = Integer.decode(routineControlIdentifierField.getText());
+            optionRecord = Integer.decode(routineControlOptionRecordField.getText());
+        } catch (NumberFormatException e) {
+            // bad parameters, do nothing
+            return;
+        }
+        int[] optionRecordArray = UdsClient.longToArray(optionRecord);
+        setIds();
+        udsClient.RoutineControl(controlType, routineId, optionRecordArray);
+    }//GEN-LAST:event_routineControlRequestButtonActionPerformed
+
+    private void transmitIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transmitIdFieldActionPerformed
+
+    }//GEN-LAST:event_transmitIdFieldActionPerformed
+
+    private void receiveIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiveIdFieldActionPerformed
+
+    }//GEN-LAST:event_receiveIdFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField clearDiagnosticInformationMaskField;
@@ -503,7 +765,19 @@ public final class DiagnosticTopComponent extends TopComponent {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

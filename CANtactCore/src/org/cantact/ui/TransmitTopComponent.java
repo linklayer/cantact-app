@@ -198,17 +198,17 @@ public final class TransmitTopComponent extends TopComponent {
 
     private void transmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transmitButtonActionPerformed
         CanFrame txFrame = new CanFrame();
-        txFrame.setId(Integer.decode(this.idField.getText()));
-        txFrame.setDlc(Integer.decode(this.dlcComboBox.getSelectedItem().toString()));
+        txFrame.setId(Integer.decode(idField.getText()));
+        txFrame.setDlc(Integer.decode(dlcComboBox.getSelectedItem().toString()));
         int[] data = {
-            Integer.decode(this.byte0Field.getText()),
-            Integer.decode(this.byte1Field.getText()),
-            Integer.decode(this.byte2Field.getText()),
-            Integer.decode(this.byte3Field.getText()),
-            Integer.decode(this.byte4Field.getText()),
-            Integer.decode(this.byte5Field.getText()),
-            Integer.decode(this.byte6Field.getText()),
-            Integer.decode(this.byte7Field.getText())
+            Integer.decode(byte0Field.getText()),
+            Integer.decode(byte1Field.getText()),
+            Integer.decode(byte2Field.getText()),
+            Integer.decode(byte3Field.getText()),
+            Integer.decode(byte4Field.getText()),
+            Integer.decode(byte5Field.getText()),
+            Integer.decode(byte6Field.getText()),
+            Integer.decode(byte7Field.getText())
         };
         txFrame.setData(data);
         DeviceManager.transmit(txFrame);
