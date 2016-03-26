@@ -1,5 +1,6 @@
 package org.cantact.proto;
 
+import org.cantact.core.DeviceManager;
 import org.openide.util.NotImplementedException;
 
 public class UdsClient {
@@ -10,9 +11,15 @@ public class UdsClient {
     public UdsClient(int txId, int rxId) {
         isotpHandler = new IsotpReceiveHandler();
         isotpInterface = new IsotpInterface(txId, rxId, isotpHandler);
+        DeviceManager.addListener(isotpInterface);
     }
 
-    private int byteSize(int x) {
+    public UdsClient(IsotpInterface isotp) {
+        isotpHandler = new IsotpReceiveHandler();
+        isotpInterface = isotp;
+    }
+
+    public static int byteSize(long x) {
         if (x < 0) {
             throw new IllegalArgumentException();
         }
@@ -23,10 +30,29 @@ public class UdsClient {
         return s;
     }
 
+    public static int[] longToArray(long value) {
+        int[] result;
+        int index = 0;
+        result = new int[byteSize(value)];
+
+        while (value > 0) {
+            int b;
+            // get the most significant byte
+            b = (int) (value >> ((byteSize(value) - 1) * 8));
+            result[index++] = b;
+            // subtract the most significant byte
+            long difference = (long) b << ((byteSize(value) - 1) * 8);
+            value -= difference;
+        }
+
+        return result;
+    }
+
     public void ObdRequest(int mode, int pid) {
-        int[] data = new int[2];
+        int[] data = new int[1 + byteSize(pid)];
+        int[] pidArray = longToArray(pid);
         data[0] = mode;
-        data[1] = pid;
+        System.arraycopy(pidArray, 0, data, 1, pidArray.length);
         isotpInterface.send(data);
     }
 
@@ -234,6 +260,7 @@ public class UdsClient {
     }
 
     public enum ObdModes {
+
         RESERVED_0,
         SHOW_CURRENT_DATA,
         SHOW_FREEZE_FRAME_DATA,
@@ -246,7 +273,7 @@ public class UdsClient {
         VEHICLE_INFO,
         PERMANENT_DTCS
     }
-    
+
     public enum UdsServices {
 
         DIAGNOSTIC_SESSION_CONTROL(0x10),

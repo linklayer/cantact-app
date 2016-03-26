@@ -29,7 +29,7 @@ public class ScriptManager implements CanListener {
         isotpReceiveHandler = new IsotpReceiveHandler();
         isotpInterface = new IsotpInterface(0, 0, isotpReceiveHandler);
         DeviceManager.addListener(isotpInterface);
-        udsClient = new UdsClient(-1, -1);
+        udsClient = new UdsClient(isotpInterface);
     }
 
     public void runScript(final String script) {
