@@ -22,7 +22,7 @@ public class CantactDevice {
     }
 
     public void setSpeedMode(int speedMode) {
-        speedMode = speedMode;
+        this.speedMode = speedMode;
     }
 
     public boolean isOpened() {

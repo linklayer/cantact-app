@@ -40,9 +40,10 @@ import org.cantact.core.DeviceManager;
     "HINT_TraceTopComponent=This is a Trace window"
 })
 public final class TraceTopComponent extends TopComponent implements CanListener {
-
     private long startTime = 0;
     private boolean running = false;
+    private int filterMinId = 0;
+    private int filterMaxId = 0x7FF;
 
     public TraceTopComponent() {
         initComponents();
@@ -76,7 +77,8 @@ public final class TraceTopComponent extends TopComponent implements CanListener
 
     @Override
     public void canReceived(CanFrame f) {
-        if (running) {
+        // only receive the frame if trace is running and value is within filter
+        if (running && f.getId() > filterMinId && f.getId() < filterMaxId) {
             java.awt.EventQueue.invokeLater(new TraceUpdater(f));
         }
     }
@@ -89,12 +91,72 @@ public final class TraceTopComponent extends TopComponent implements CanListener
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        filterDialog = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        minIdTextField = new javax.swing.JTextField();
+        maxIdTextField = new javax.swing.JTextField();
+        filterApplyButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         messageTable = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         startButton = new javax.swing.JButton();
         stopButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
+        filterButton = new javax.swing.JButton();
+
+        filterDialog.setLocation(new java.awt.Point(100, 100));
+        filterDialog.setMinimumSize(new java.awt.Dimension(300, 130));
+        filterDialog.setPreferredSize(new java.awt.Dimension(300, 130));
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.jLabel1.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.jLabel2.text")); // NOI18N
+
+        minIdTextField.setText(org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.minIdTextField.text")); // NOI18N
+
+        maxIdTextField.setText(org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.maxIdTextField.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(filterApplyButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.filterApplyButton.text")); // NOI18N
+        filterApplyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterApplyButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout filterDialogLayout = new javax.swing.GroupLayout(filterDialog.getContentPane());
+        filterDialog.getContentPane().setLayout(filterDialogLayout);
+        filterDialogLayout.setHorizontalGroup(
+            filterDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(filterDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(filterDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(filterDialogLayout.createSequentialGroup()
+                        .addGroup(filterDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(filterDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(minIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(maxIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(filterApplyButton))
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+        filterDialogLayout.setVerticalGroup(
+            filterDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(filterDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(filterDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(minIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(filterDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(maxIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filterApplyButton)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         messageTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -151,6 +213,20 @@ public final class TraceTopComponent extends TopComponent implements CanListener
             }
         });
         jToolBar1.add(saveButton);
+
+        filterButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/cantact/ui/filter.png"))); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(filterButton, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.filterButton.text")); // NOI18N
+        filterButton.setFocusable(false);
+        filterButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        filterButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        filterButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        filterButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        filterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterButtonActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(filterButton);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -237,10 +313,30 @@ public final class TraceTopComponent extends TopComponent implements CanListener
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
+        filterDialog.setVisible(true);
+    }//GEN-LAST:event_filterButtonActionPerformed
+
+    private void filterApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterApplyButtonActionPerformed
+        try {
+            filterMinId = Integer.decode(minIdTextField.getText());
+            filterMaxId = Integer.decode(maxIdTextField.getText());
+        } catch (NumberFormatException e) {
+            // bad values, but do nothing
+        }
+    }//GEN-LAST:event_filterApplyButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton filterApplyButton;
+    private javax.swing.JButton filterButton;
+    private javax.swing.JDialog filterDialog;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTextField maxIdTextField;
     private javax.swing.JTable messageTable;
+    private javax.swing.JTextField minIdTextField;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton startButton;
     private javax.swing.JButton stopButton;

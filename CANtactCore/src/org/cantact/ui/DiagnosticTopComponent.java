@@ -6,6 +6,8 @@
 package org.cantact.ui;
 
 import java.awt.CardLayout;
+import org.cantact.proto.IsotpInterface;
+import org.cantact.proto.IsotpInterface.IsotpCallback;
 import org.cantact.proto.UdsClient;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
@@ -40,11 +42,14 @@ import org.openide.util.NbBundle.Messages;
 public final class DiagnosticTopComponent extends TopComponent {
 
     private final UdsClient udsClient;
+    IsotpInterface isotp;
 
+    
     public DiagnosticTopComponent() {
         initComponents();
         setName(Bundle.CTL_DiagnosticTopComponent());
         setToolTipText(Bundle.HINT_DiagnosticTopComponent());
+        isotp = new IsotpInterface(0, 0, new DiagnosticIsotpCallback());
         udsClient = new UdsClient(0, 0);
     }
 
@@ -143,7 +148,7 @@ public final class DiagnosticTopComponent extends TopComponent {
         jLabel25 = new javax.swing.JLabel();
         routineControlRequestButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        resultTextArea = new javax.swing.JTextArea();
 
         setMinimumSize(new java.awt.Dimension(600, 100));
         setPreferredSize(new java.awt.Dimension(800, 400));
@@ -520,9 +525,9 @@ public final class DiagnosticTopComponent extends TopComponent {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         add(servicePanel, gridBagConstraints);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        resultTextArea.setColumns(20);
+        resultTextArea.setRows(5);
+        jScrollPane1.setViewportView(resultTextArea);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -787,7 +792,6 @@ public final class DiagnosticTopComponent extends TopComponent {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox obdModeComboBox;
     private javax.swing.JPanel obdPanel;
     private javax.swing.JTextField obdPidField;
@@ -796,6 +800,7 @@ public final class DiagnosticTopComponent extends TopComponent {
     private javax.swing.JPanel readDataByIdPanel;
     private javax.swing.JButton readDataByIdRequestButton;
     private javax.swing.JTextField receiveIdField;
+    private javax.swing.JTextArea resultTextArea;
     private javax.swing.JTextField routineControlIdentifierField;
     private javax.swing.JTextField routineControlOptionRecordField;
     private javax.swing.JPanel routineControlPanel;
@@ -837,5 +842,17 @@ public final class DiagnosticTopComponent extends TopComponent {
     void readProperties(java.util.Properties p) {
         String version = p.getProperty("version");
         // TODO read your settings according to their version
+    }
+    
+    private final class DiagnosticIsotpCallback implements IsotpCallback {
+        @Override
+        public void onIsotpReceived(int[] data) {
+            String result = "";
+            for (int i : data) {
+                result = String.format("%s0x%X ", result, i);
+            }
+            resultTextArea.setText(String.format("%s\n%s", 
+                    resultTextArea.getText(), result));
+        }
     }
 }

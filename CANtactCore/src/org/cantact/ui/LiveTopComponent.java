@@ -153,20 +153,28 @@ public final class LiveTopComponent extends TopComponent implements CanListener 
                 if ((int)liveModel.getValueAt(i, 0) == frame.getId()) {
                     liveModel.setValueAt((Object)frame.getDlc(), i, 1);
                     // get the existing cell data
-                    LiveTableDataCell dataCell = (LiveTableDataCell)liveModel.getValueAt(i, 2);
-                    dataCell.swap();
-                    // set current value to new data
-                    dataCell.setCurrent(dataString);
-                    // push to the table
-                    liveModel.setValueAt(dataCell, i, 2);    
-                    inserted = true;
+                    try {
+                        LiveTableDataCell dataCell = (LiveTableDataCell)liveModel.getValueAt(i, 2);
+                        dataCell.swap();                  
+                        // set current value to new data
+                        dataCell.setCurrent(dataString);
+                        // push to the table
+                        liveModel.setValueAt(dataCell, i, 2);    
+                        inserted = true;
+                    } catch (ClassCastException e) {
+                        // dataCell has been edited and is now a string
+                        // remove that row
+                        liveModel.removeRow(i);
+                    }
                 }
             }
+            
             if (!inserted) {
                 LiveTableDataCell dataCell = new LiveTableDataCell();
                 dataCell.setCurrent(dataString);
                 Object[] rowData = {(Object)frame.getId(), (Object)frame.getDlc(), dataCell};
                 liveModel.addRow(rowData);
+            
             }
         }
     }
