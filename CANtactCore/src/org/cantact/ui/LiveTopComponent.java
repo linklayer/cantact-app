@@ -83,14 +83,6 @@ class LiveTableRenderer extends DefaultTableCellRenderer {
             }
             result = result + "</html>";
             setText(result);
-            /*
-            if (dataCell.getCurrent().equals(dataCell.getPrevious()))
-            {
-                c.setForeground(Color.lightGray);
-            } else {
-                c.setForeground(Color.black);
-            }*/
-
         } else {
             c = super.getTableCellRendererComponent(table, 
                 value, isSelected, hasFocus, row, 

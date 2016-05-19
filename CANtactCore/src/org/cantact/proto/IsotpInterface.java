@@ -177,7 +177,6 @@ public class IsotpInterface implements CanListener {
                 System.arraycopy(f.getData(), 1, rxData, 0, rxDataLength);
                 rxDataIndex = rxDataLength - 1;
                 callback.onIsotpReceived(rxData);
-                state = IsotpState.IDLE;
             } else if (frameType == 1) {
                 // received a first frame
                 // data length is lower nybble of first byte and second byte
