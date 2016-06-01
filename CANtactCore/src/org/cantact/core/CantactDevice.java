@@ -87,29 +87,41 @@ public class CantactDevice {
 
         Byte type = slcanData[0];
 
+        int id;
+        int dlc;
+        Byte[] idBytes;
+        Byte[] dlcBytes;
+        Byte[] dataBytes;
         if (type == 't') {
-            int id;
-            int dlc;
-
-            Byte[] idBytes = Arrays.copyOfRange(slcanData, 1, 4);
-            String idString = byteArrayToString(idBytes);
-            id = Integer.valueOf(idString, 16);
-            result.setId(id);
-
-            Byte[] dlcBytes = Arrays.copyOfRange(slcanData, 4, 5);
-            dlc = Integer.valueOf(byteArrayToString(dlcBytes));
-            result.setDlc(dlc);
-
-            Byte[] dataBytes = Arrays.copyOfRange(slcanData, 5,
-                    slcanData.length);
-            int[] data = {0, 0, 0, 0, 0, 0, 0, 0};
-            for (int i = 0; i < dlc; i++) {
-                String byteString;
-                byteString = byteArrayToString(Arrays.copyOfRange(dataBytes, i * 2, i * 2 + 2));
-                data[i] = Integer.valueOf(byteString, 16);
-            }
-            result.setData(data);
+            // standard ID
+            idBytes = Arrays.copyOfRange(slcanData, 1, 4);
+            dlcBytes = Arrays.copyOfRange(slcanData, 4, 5);
+            dataBytes = Arrays.copyOfRange(slcanData, 5, slcanData.length);
+        } else if (type == 'T') {
+            // extended ID
+            idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+            dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+            dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
+        } else {
+            // this isn't a valid frame
+            return null;
         }
+        String idString = byteArrayToString(idBytes);
+        id = Integer.valueOf(idString, 16);
+        result.setId(id);
+        
+
+        dlc = Integer.valueOf(byteArrayToString(dlcBytes));
+        result.setDlc(dlc);
+                
+        int[] data = {0, 0, 0, 0, 0, 0, 0, 0};
+        for (int i = 0; i < dlc; i++) {
+            String byteString;
+            byteString = byteArrayToString(Arrays.copyOfRange(dataBytes,
+                    i * 2, i * 2 + 2));
+            data[i] = Integer.valueOf(byteString, 16);
+        }
+        result.setData(data);
 
         return result;
     }

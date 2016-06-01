@@ -43,7 +43,7 @@ public final class TraceTopComponent extends TopComponent implements CanListener
     private long startTime = 0;
     private boolean running = false;
     private int filterMinId = 0;
-    private int filterMaxId = 0x7FF;
+    private int filterMaxId = 0x7FFFFFFF;
 
     public TraceTopComponent() {
         initComponents();
@@ -62,15 +62,28 @@ public final class TraceTopComponent extends TopComponent implements CanListener
 
         public void run() {
             /* calculate the relative timestamp in seconds */
-            float timestamp = (float) (System.currentTimeMillis() - startTime) / 1000;
+            float timestamp = (((float)(System.currentTimeMillis() - startTime)) 
+                    / 1000);
 
+            // format ID as hex
+            String idString;
+            if (frame.getId() < 0x7FF) {
+                idString = String.format("0x%04X", frame.getId());
+            } else {
+                idString = String.format("0x%08X", frame.getId());
+            }
+            
+            // format data as bytes in hex
             String dataString = "";
             for (int i = 0; i < frame.getDlc(); i++) {
-                dataString = dataString + String.format("%02X ", frame.getData()[i]);
+                dataString = dataString + String.format("%02X ", 
+                        frame.getData()[i]);
             }
 
+            // set the row data and insert the row
             DefaultTableModel messageModel = (DefaultTableModel) messageTable.getModel();
-            Object[] rowData = {(Object) timestamp, (Object) frame.getId(), (Object) frame.getDlc(), dataString};
+            Object[] rowData = {(Object) timestamp, (Object) idString, 
+                (Object) frame.getDlc(), dataString};
             messageModel.insertRow(0, rowData);
         }
     }
@@ -296,14 +309,21 @@ public final class TraceTopComponent extends TopComponent implements CanListener
                 for (int row = model.getRowCount() - 1; row >= 0; row--) {
                     /* get the values from the table model */
                     float timestamp = (float) model.getValueAt(row, 0);
-                    int id = (int) model.getValueAt(row, 1);
-                    //int dlc = (int)model.getValueAt(row, 2);
+                    int id = Integer.valueOf(
+                            model.getValueAt(row, 1).toString().substring(2), 
+                            16);
                     String data = (String) model.getValueAt(row, 3);
 
                     /* create candump formatted string */
                     data = data.replace(" ", "");
-                    String out = String.format("(%05f) can0 %03X#%s\n",
+                    String out;
+                    if (id < 0x7FF) {
+                    out = String.format("(%05f) can0 %03X#%s\n",
                             timestamp, id, data);
+                    } else {
+                     out = String.format("(%05f) can0 %08X#%s\n",
+                            timestamp, id, data);                       
+                    }
                     os.write(out);
                 }
                 os.close();
