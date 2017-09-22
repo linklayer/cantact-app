@@ -174,9 +174,11 @@ public class CantactDevice {
 
                     for (byte b : bs) {
                         if (b == '\r') {
-                            // end of frame data received
-                            CanFrame f = slcanToFrame(frameBytes.toArray(new Byte[frameBytes.size()]));
-                            DeviceManager.giveFrame(f);
+                            if(frameBytes.size() > 4) {
+                                // end of frame data received
+                                CanFrame f = slcanToFrame(frameBytes.toArray(new Byte[frameBytes.size()]));
+                                DeviceManager.giveFrame(f);
+                            }
                             frameBytes.clear();
                         } else {
                             // byte received, add to buffer
