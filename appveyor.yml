@@ -1,0 +1,76 @@
+# AppVeyor build configuration
+# https://www.appveyor.com/docs/build-configuration
+# https://www.appveyor.com/docs/appveyor-yml/
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 1.0.1.0.0.7.{build}-{branch}
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+os: Windows Server 2012
+environment:
+    matrix:
+        - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+
+# Enable Windows RDP Client Access to Build Worker (non-blocking)
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+install:
+  - ps: choco install ant
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# use custom build_script
+build_script:
+  - ant build -Dnbplatform.default.harness.dir=%APPVEYOR_BUILD_FOLDER%/nbmant/harness -Dnbplatform.active.dir=%APPVEYOR_BUILD_FOLDER%/nbmant
+  - tree .
+  # zip the build folder into an archive
+  - 7z a cantact-app-%APPVEYOR_REPO_COMMIT%.zip %APPVEYOR_BUILD_FOLDER%/build
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+# to disable automatic tests
+test: off
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+#specify artifacts to upload
+artifacts:
+  - path: cantact-app-%APPVEYOR_REPO_COMMIT%.zip
+    name: cantact-app-%APPVEYOR_REPO_COMMIT%
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+# to disable deployment
+deploy: off
+
+#---------------------------------#
+#        global handlers          #
+#---------------------------------#
+
+# on successful build
+on_success:
+  - ECHO "BUILD VICTORY"
+
+# on build failure
+on_failure:
+  - ECHO "TRY AND TRY AGAIN"
+
+# after build failure or success
+# uncomment to debug via blocking rdp session
+on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
