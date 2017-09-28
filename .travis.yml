@@ -1,0 +1,22 @@
+# Travis build configuration
+# https://docs.travis-ci.com/user/customizing-the-build/
+sudo: required
+language: java
+
+jdk:
+  - oraclejdk8
+#  - oraclejdk9
+
+os:
+  - linux
+
+matrix:
+    allow_failures:
+      - jdk: oraclejdk9
+
+install:
+  - sudo apt-get install -y tree
+
+script:
+  - ant build -Dnbplatform.default.harness.dir=$TRAVIS_BUILD_DIR/nbmant/harness -Dnbplatform.active.dir=$TRAVIS_BUILD_DIR/nbmant
+  - tree .
