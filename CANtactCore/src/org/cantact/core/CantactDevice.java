@@ -92,7 +92,21 @@ public class CantactDevice {
         Byte[] idBytes;
         Byte[] dlcBytes;
         Byte[] dataBytes;
-        if (type == 't') {
+        
+        if (type == 'r') {
+            // standard ID RTR
+            idBytes = Arrays.copyOfRange(slcanData, 1, 4);
+            dlcBytes = Arrays.copyOfRange(slcanData, 4, 5);
+            result.setIsRTR(true);
+            dataBytes = null;
+        } else if (type == 'R') {
+            // extended ID RTR
+            idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+            dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+            result.setIsRTR(true);
+            result.setHasExtendedID(true);
+            dataBytes = null;
+        } else if (type == 't') {
             // standard ID
             idBytes = Arrays.copyOfRange(slcanData, 1, 4);
             dlcBytes = Arrays.copyOfRange(slcanData, 4, 5);
@@ -102,7 +116,21 @@ public class CantactDevice {
             idBytes = Arrays.copyOfRange(slcanData, 1, 9);
             dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
             dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
-        } else {
+            result.setHasExtendedID(true);
+        } else if (type == 'd') {
+            // standard ID FD
+            idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+            dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+            dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
+            result.setIsFD(true);
+        } else if (type == 'D') {
+            // extended ID FD
+            idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+            dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+            dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
+            result.setHasExtendedID(true);
+             result.setIsFD(true);
+        }else {
             // this isn't a valid frame
             return null;
         }
@@ -113,15 +141,25 @@ public class CantactDevice {
 
         dlc = Integer.valueOf(byteArrayToString(dlcBytes));
         result.setDlc(dlc);
-                
-        int[] data = {0, 0, 0, 0, 0, 0, 0, 0};
-        for (int i = 0; i < dlc; i++) {
-            String byteString;
-            byteString = byteArrayToString(Arrays.copyOfRange(dataBytes,
-                    i * 2, i * 2 + 2));
-            data[i] = Integer.valueOf(byteString, 16);
+         
+        if (!result.isIsRTR()){
+            int[] data = { 
+                0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0};
+            for (int i = 0; i < dlc; i++) {
+                String byteString;
+                byteString = byteArrayToString(Arrays.copyOfRange(dataBytes,
+                        i * 2, i * 2 + 2));
+                data[i] = Integer.valueOf(byteString, 16);
+            }
+            result.setData(data);
         }
-        result.setData(data);
 
         return result;
     }
@@ -137,13 +175,44 @@ public class CantactDevice {
 
     private String frameToSlcan(CanFrame frame) {
         String result = "";
+        boolean isFd = frame.isIsFD();
+        boolean hasExtendedID = frame.isHasExtendedID();
+        
+        if(frame.isIsRTR()){
+            if(hasExtendedID){
+                result += "R";
+            } else{
+                result += "r";
+            }
+        } else {   
+            
+            if (hasExtendedID){
+                if (isFd){
+                    result += "D";
+                }else {
+                    result += "T";
+                }
+                
+                result += String.format("%08X", frame.getId());
+                
+            } else {
+                if (isFd){
+                    result += "d";
+                }else {
+                    result += "t";
+                }
+                
+                result += String.format("%03X", frame.getId());
+            }    
+            
+        }
 
-        result += "t";
-        result += String.format("%03X", frame.getId());
         result += Integer.toString(frame.getDlc());
-
-        for (int i : frame.getData()) {
-            result += String.format("%02X", i);
+        
+        if (!frame.isIsRTR()){
+            for (int i : frame.getData()) {
+                result += String.format("%02X", i);
+            }
         }
 
         result += "\r";
@@ -174,9 +243,11 @@ public class CantactDevice {
 
                     for (byte b : bs) {
                         if (b == '\r') {
-                            // end of frame data received
-                            CanFrame f = slcanToFrame(frameBytes.toArray(new Byte[frameBytes.size()]));
-                            DeviceManager.giveFrame(f);
+                             if(frameBytes.size() > 4) {
+                                // end of frame data received
+                                CanFrame f = slcanToFrame(frameBytes.toArray(new Byte[frameBytes.size()]));
+                                DeviceManager.giveFrame(f);
+                             }
                             frameBytes.clear();
                         } else {
                             // byte received, add to buffer

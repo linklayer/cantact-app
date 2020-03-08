@@ -120,7 +120,6 @@ public final class TraceTopComponent extends TopComponent implements CanListener
 
         filterDialog.setLocation(new java.awt.Point(100, 100));
         filterDialog.setMinimumSize(new java.awt.Dimension(300, 130));
-        filterDialog.setPreferredSize(new java.awt.Dimension(300, 130));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.jLabel1.text")); // NOI18N
 
@@ -176,11 +175,11 @@ public final class TraceTopComponent extends TopComponent implements CanListener
 
             },
             new String [] {
-                "Timestamp", "ID", "DLC", "Data"
+                "Timestamp", "ID", "MessageType", "DLC", "Data"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Float.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -188,6 +187,13 @@ public final class TraceTopComponent extends TopComponent implements CanListener
             }
         });
         jScrollPane1.setViewportView(messageTable);
+        if (messageTable.getColumnModel().getColumnCount() > 0) {
+            messageTable.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.messageTable.columnModel.title0")); // NOI18N
+            messageTable.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.messageTable.columnModel.title1")); // NOI18N
+            messageTable.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.messageTable.columnModel.title4")); // NOI18N
+            messageTable.getColumnModel().getColumn(3).setHeaderValue(org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.messageTable.columnModel.title2")); // NOI18N
+            messageTable.getColumnModel().getColumn(4).setHeaderValue(org.openide.util.NbBundle.getMessage(TraceTopComponent.class, "TraceTopComponent.messageTable.columnModel.title3")); // NOI18N
+        }
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
