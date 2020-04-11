@@ -5,11 +5,20 @@ public class CanFrame {
     private int dlc;
     private int[] data;
     private boolean isFD;
+    private boolean isBRS;
     private boolean isRTR;
     private boolean hasExtendedID;
 
     public boolean isIsRTR() {
         return isRTR;
+    }
+
+    public boolean isIsBRS() {
+        return isBRS;
+    }
+
+    public void setIsBRS(boolean isBRS) {
+        this.isBRS = isBRS;
     }
 
     public void setIsRTR(boolean isRTR) {

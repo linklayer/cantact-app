@@ -93,46 +93,73 @@ public class CantactDevice {
         Byte[] dlcBytes;
         Byte[] dataBytes;
         
-        if (type == 'r') {
-            // standard ID RTR
-            idBytes = Arrays.copyOfRange(slcanData, 1, 4);
-            dlcBytes = Arrays.copyOfRange(slcanData, 4, 5);
-            result.setIsRTR(true);
-            dataBytes = null;
-        } else if (type == 'R') {
-            // extended ID RTR
-            idBytes = Arrays.copyOfRange(slcanData, 1, 9);
-            dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
-            result.setIsRTR(true);
-            result.setHasExtendedID(true);
-            dataBytes = null;
-        } else if (type == 't') {
-            // standard ID
-            idBytes = Arrays.copyOfRange(slcanData, 1, 4);
-            dlcBytes = Arrays.copyOfRange(slcanData, 4, 5);
-            dataBytes = Arrays.copyOfRange(slcanData, 5, slcanData.length);
-        } else if (type == 'T') {
-            // extended ID
-            idBytes = Arrays.copyOfRange(slcanData, 1, 9);
-            dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
-            dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
-            result.setHasExtendedID(true);
-        } else if (type == 'd') {
-            // standard ID FD
-            idBytes = Arrays.copyOfRange(slcanData, 1, 9);
-            dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
-            dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
-            result.setIsFD(true);
-        } else if (type == 'D') {
-            // extended ID FD
-            idBytes = Arrays.copyOfRange(slcanData, 1, 9);
-            dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
-            dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
-            result.setHasExtendedID(true);
-             result.setIsFD(true);
-        }else {
+        if (null == type) {
             // this isn't a valid frame
             return null;
+        } else switch (type) {
+            case 'r':
+                // standard ID RTR
+                idBytes = Arrays.copyOfRange(slcanData, 1, 4);
+                dlcBytes = Arrays.copyOfRange(slcanData, 4, 5);
+                result.setIsRTR(true);
+                dataBytes = null;
+                break;
+            case 'R':
+                // extended ID RTR
+                idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+                dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+                result.setIsRTR(true);
+                result.setHasExtendedID(true);
+                dataBytes = null;
+                break;
+            case 't':
+                // standard ID
+                idBytes = Arrays.copyOfRange(slcanData, 1, 4);
+                dlcBytes = Arrays.copyOfRange(slcanData, 4, 5);
+                dataBytes = Arrays.copyOfRange(slcanData, 5, slcanData.length);
+                break;
+            case 'T':
+                // extended ID
+                idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+                dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+                dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
+                result.setHasExtendedID(true);
+                break;
+            case 'd':
+                // standard ID FD
+                idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+                dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+                dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
+                result.setIsFD(true);
+                break;
+            case 'D':
+                // extended ID FD
+                idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+                dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+                dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
+                result.setHasExtendedID(true);
+                result.setIsFD(true);
+                break;
+            case 'b':
+                // standard ID FD
+                idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+                dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+                dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
+                result.setIsFD(true);
+                result.setIsBRS(true);
+                break;
+            case 'B':
+                // extended ID FD
+                idBytes = Arrays.copyOfRange(slcanData, 1, 9);
+                dlcBytes = Arrays.copyOfRange(slcanData, 9, 10);
+                dataBytes = Arrays.copyOfRange(slcanData, 10, slcanData.length);
+                result.setHasExtendedID(true);
+                result.setIsFD(true);
+                result.setIsBRS(true);
+                break;
+            default:
+                // this isn't a valid frame
+                return null;
         }
         String idString = byteArrayToString(idBytes);
         id = Integer.valueOf(idString, 16);
@@ -176,6 +203,7 @@ public class CantactDevice {
     private String frameToSlcan(CanFrame frame) {
         String result = "";
         boolean isFd = frame.isIsFD();
+        boolean isBRS = frame.isIsBRS();
         boolean hasExtendedID = frame.isHasExtendedID();
         
         if(frame.isIsRTR()){
@@ -188,7 +216,10 @@ public class CantactDevice {
             
             if (hasExtendedID){
                 if (isFd){
-                    result += "D";
+                    if (isBRS)
+                        result += "B";
+                    else
+                        result += "D";
                 }else {
                     result += "T";
                 }
@@ -197,7 +228,10 @@ public class CantactDevice {
                 
             } else {
                 if (isFd){
-                    result += "d";
+                    if (isBRS)
+                        result += "b";
+                    else
+                        result += "d";
                 }else {
                     result += "t";
                 }
