@@ -34,7 +34,11 @@ import javax.swing.*;
     "HINT_TransmitTopComponent=This is a Transmit window"
 })
 public final class TransmitTopComponent extends TopComponent {
-    static final int MAX_STD_CAN_DLC = 8;
+    static final int MAX_STD_CAN_DLC = 8;   
+
+    DefaultComboBoxModel model_std_can = new DefaultComboBoxModel( new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8" } );
+    DefaultComboBoxModel model_can_fd = new DefaultComboBoxModel( new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "12", "16", "20", "24", "32", "48", "64" } );
+    
     public TransmitTopComponent() {
         initComponents();
         setName(Bundle.CTL_TransmitTopComponent());
@@ -401,25 +405,10 @@ public final class TransmitTopComponent extends TopComponent {
         
         if (fdCheckBox.isSelected()){   
             brsCheckBox.setVisible(true);
-            
-            dlcComboBox.addItem("12");
-            dlcComboBox.addItem("16");
-            dlcComboBox.addItem("20");
-            dlcComboBox.addItem("24");
-            dlcComboBox.addItem("32");
-            dlcComboBox.addItem("48");
-            dlcComboBox.addItem("64");
-            
-            
+            dlcComboBox.setModel(model_can_fd);    
         } else {            
             brsCheckBox.setVisible(false);
-            dlcComboBox.removeItemAt(9);
-            dlcComboBox.removeItemAt(9);
-            dlcComboBox.removeItemAt(9);
-            dlcComboBox.removeItemAt(9);
-            dlcComboBox.removeItemAt(9);
-            dlcComboBox.removeItemAt(9);
-            dlcComboBox.removeItemAt(9);
+            dlcComboBox.setModel(model_std_can);
         }
     }//GEN-LAST:event_fdCheckBoxActionPerformed
 
