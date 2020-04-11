@@ -61,8 +61,8 @@ public final class ConfigTopComponent extends TopComponent {
     private void initComponents() {
 
         startButton = new javax.swing.JButton();
-        portComboBox = new javax.swing.JComboBox<String>();
-        bitRateComboBox = new javax.swing.JComboBox<String>();
+        portComboBox = new javax.swing.JComboBox<>();
+        bitRateComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         refreshButton = new javax.swing.JButton();
@@ -75,14 +75,14 @@ public final class ConfigTopComponent extends TopComponent {
             }
         });
 
-        portComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "None" }));
+        portComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         portComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 portComboBoxActionPerformed(evt);
             }
         });
 
-        bitRateComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10 Kbps", "20 Kbps", "50 Kbps", "100 Kbps", "125 Kbps", "250 Kbps", "500 Kbps", "750 Kbps", "1000 Kbps" }));
+        bitRateComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10 Kbps", "20 Kbps", "50 Kbps", "100 Kbps", "125 Kbps", "250 Kbps", "500 Kbps", "800 Kbps", "1 Mbps", "83.3 Kbps" }));
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(ConfigTopComponent.class, "ConfigTopComponent.jLabel1.text")); // NOI18N
 
