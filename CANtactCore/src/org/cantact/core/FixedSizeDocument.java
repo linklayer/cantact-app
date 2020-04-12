@@ -31,7 +31,7 @@ public class FixedSizeDocument extends PlainDocument{
     
    private boolean isInt(String text) {
       try {
-         Integer.parseInt(text);
+         Integer.parseInt(text, 16);
          return true;
       } catch (NumberFormatException e) {
          return false;
