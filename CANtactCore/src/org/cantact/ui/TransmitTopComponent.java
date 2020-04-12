@@ -82,14 +82,28 @@ public final class TransmitTopComponent extends TopComponent {
         byte13Field = new javax.swing.JTextField();
         byte14Field = new javax.swing.JTextField();
         byte15Field = new javax.swing.JTextField();
+        byte16Field = new javax.swing.JTextField();
         brsCheckBox = new javax.swing.JCheckBox();
+        jPanelIndex = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setLayout(new java.awt.GridBagLayout());
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel1.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
@@ -142,7 +156,7 @@ public final class TransmitTopComponent extends TopComponent {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.gridwidth = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
@@ -200,167 +214,177 @@ public final class TransmitTopComponent extends TopComponent {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 8, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte0Field, gridBagConstraints);
-        byte0Field.setVisible(false);
+        byte0Field.setEnabled(false);
 
         byte1Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte1Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte1Field, gridBagConstraints);
-        byte1Field.setVisible(false);
+        byte1Field.setEnabled(false);
 
         byte2Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte2Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte2Field, gridBagConstraints);
-        byte2Field.setVisible(false);
+        byte2Field.setEnabled(false);
 
         byte3Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte3Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte3Field, gridBagConstraints);
-        byte3Field.setVisible(false);
+        byte3Field.setEnabled(false);
 
         byte4Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte4Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte4Field, gridBagConstraints);
-        byte4Field.setVisible(false);
+        byte4Field.setEnabled(false);
 
         byte5Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte5Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte5Field, gridBagConstraints);
-        byte5Field.setVisible(false);
+        byte5Field.setEnabled(false);
 
         byte6Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte6Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte6Field, gridBagConstraints);
-        byte6Field.setVisible(false);
+        byte6Field.setEnabled(false);
 
         byte7Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte7Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte7Field, gridBagConstraints);
-        byte7Field.setVisible(false);
+        byte7Field.setEnabled(false);
 
         byte8Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte8Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 8, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte8Field, gridBagConstraints);
-        byte8Field.setVisible(false);
+        byte8Field.setEnabled(false);
 
         byte9Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte9Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 32;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        gridBagConstraints.ipadx = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte9Field, gridBagConstraints);
-        byte9Field.setVisible(false);
+        byte9Field.setEnabled(false);
 
         byte10Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte10Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 32;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.ipadx = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte10Field, gridBagConstraints);
-        byte10Field.setVisible(false);
+        byte10Field.setEnabled(false);
 
         byte11Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte11Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte11Field, gridBagConstraints);
-        byte11Field.setVisible(false);
+        byte11Field.setEnabled(false);
 
         byte12Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte12Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte12Field, gridBagConstraints);
-        byte12Field.setVisible(false);
+        byte12Field.setEnabled(false);
 
         byte13Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte13Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte13Field, gridBagConstraints);
-        byte13Field.setVisible(false);
+        byte13Field.setEnabled(false);
 
         byte14Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte14Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte14Field, gridBagConstraints);
-        byte14Field.setVisible(false);
+        byte14Field.setEnabled(false);
 
         byte15Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte15Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte15Field, gridBagConstraints);
-        byte15Field.setVisible(false);
+        byte15Field.setEnabled(false);
 
+        byte16Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte16Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        jPanelByteFields.add(byte16Field, gridBagConstraints);
+        byte16Field.setEnabled(false);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridheight = 3;
         add(jPanelByteFields, gridBagConstraints);
 
         org.openide.awt.Mnemonics.setLocalizedText(brsCheckBox, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.brsCheckBox.text")); // NOI18N
@@ -370,6 +394,148 @@ public final class TransmitTopComponent extends TopComponent {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
         add(brsCheckBox, gridBagConstraints);
+
+        jPanelIndex.setAlignmentX(30.0F);
+        jPanelIndex.setMinimumSize(new java.awt.Dimension(298, 14));
+        jPanelIndex.setLayout(new java.awt.GridBagLayout());
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel8, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel8.text")); // NOI18N
+        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 7, 0, 0);
+        jPanelIndex.add(jLabel8, gridBagConstraints);
+        jLabel8.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel8.AccessibleContext.accessibleName")); // NOI18N
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel9, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel9.text")); // NOI18N
+        jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 7, 0, 0);
+        jPanelIndex.add(jLabel9, gridBagConstraints);
+        jLabel9.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel9.AccessibleContext.accessibleName")); // NOI18N
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel4.text")); // NOI18N
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 7, 0, 0);
+        jPanelIndex.add(jLabel4, gridBagConstraints);
+        jLabel4.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel4.AccessibleContext.accessibleName")); // NOI18N
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel5.text")); // NOI18N
+        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 7, 0, 0);
+        jPanelIndex.add(jLabel5, gridBagConstraints);
+        jLabel5.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel5.AccessibleContext.accessibleName")); // NOI18N
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel6, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel6.text")); // NOI18N
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 7, 0, 0);
+        jPanelIndex.add(jLabel6, gridBagConstraints);
+        jLabel6.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel6.AccessibleContext.accessibleName")); // NOI18N
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel7, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel7.text")); // NOI18N
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 7, 0, 0);
+        jPanelIndex.add(jLabel7, gridBagConstraints);
+        jLabel7.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel7.AccessibleContext.accessibleName")); // NOI18N
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel11, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel11.text")); // NOI18N
+        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 7, 0, 0);
+        jPanelIndex.add(jLabel11, gridBagConstraints);
+        jLabel11.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel11.AccessibleContext.accessibleName")); // NOI18N
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel12, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel12.text")); // NOI18N
+        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 7, 0, 0);
+        jPanelIndex.add(jLabel12, gridBagConstraints);
+        jLabel12.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel12.AccessibleContext.accessibleName")); // NOI18N
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 8;
+        add(jPanelIndex, gridBagConstraints);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel10, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel10.text")); // NOI18N
+        jLabel10.setToolTipText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel10.toolTipText")); // NOI18N
+        jLabel10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        add(jLabel10, gridBagConstraints);
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel13, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel13.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        add(jLabel13, gridBagConstraints);
+
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel14, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel14.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        add(jLabel14, gridBagConstraints);
+
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel15, org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.jLabel15.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        add(jLabel15, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void transmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transmitButtonActionPerformed
@@ -402,13 +568,21 @@ public final class TransmitTopComponent extends TopComponent {
 
     private void fdCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fdCheckBoxActionPerformed
         //Set DLC values   
+        Object dlc = dlcComboBox.getSelectedItem();
         
         if (fdCheckBox.isSelected()){   
             brsCheckBox.setVisible(true);
-            dlcComboBox.setModel(model_can_fd);    
+            dlcComboBox.setModel(model_can_fd); 
+            dlcComboBox.setSelectedItem(dlc);
         } else {            
             brsCheckBox.setVisible(false);
             dlcComboBox.setModel(model_std_can);
+            
+            if (Integer.decode(dlc.toString()) > 8){
+                dlcComboBox.setSelectedItem("8");
+            } else {            
+                dlcComboBox.setSelectedItem(dlc);
+            }
         }
     }//GEN-LAST:event_fdCheckBoxActionPerformed
 
@@ -435,11 +609,11 @@ public final class TransmitTopComponent extends TopComponent {
         
         //Disable all ByteFields
         for (Component comp: jPanelByteFields.getComponents())
-                comp.setVisible(false);  
+                comp.setEnabled(false);  
         
         Component[] byteFields = jPanelByteFields.getComponents();
         for (int i = 0; i < dlc; i++) {
-            byteFields[i].setVisible(true);
+            byteFields[i].setEnabled(true);
         }
         
     }//GEN-LAST:event_dlcComboBoxActionPerformed
@@ -454,6 +628,7 @@ public final class TransmitTopComponent extends TopComponent {
     private javax.swing.JTextField byte13Field;
     private javax.swing.JTextField byte14Field;
     private javax.swing.JTextField byte15Field;
+    private javax.swing.JTextField byte16Field;
     private javax.swing.JTextField byte1Field;
     private javax.swing.JTextField byte2Field;
     private javax.swing.JTextField byte3Field;
@@ -468,10 +643,23 @@ public final class TransmitTopComponent extends TopComponent {
     private javax.swing.JCheckBox fdCheckBox;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelByteFields;
+    private javax.swing.JPanel jPanelIndex;
     private javax.swing.JCheckBox rtrCheckBox;
     private javax.swing.JButton transmitButton;
     // End of variables declaration//GEN-END:variables
