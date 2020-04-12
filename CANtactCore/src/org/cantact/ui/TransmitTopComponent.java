@@ -2,6 +2,7 @@ package org.cantact.ui;
 
 import org.cantact.core.CanFrame;
 import org.cantact.core.DeviceManager;
+import org.cantact.core.FixedSizeDocument;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -211,14 +212,17 @@ public final class TransmitTopComponent extends TopComponent {
         jPanelByteFields.setLayout(new java.awt.GridBagLayout());
 
         byte0Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte0Field.text")); // NOI18N
+        byte0Field.setMinimumSize(new java.awt.Dimension(20, 40));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 5;
+        gridBagConstraints.ipadx = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 60.0;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         jPanelByteFields.add(byte0Field, gridBagConstraints);
         byte0Field.setEnabled(false);
+        byte0Field.setDocument(new FixedSizeDocument(2));
 
         byte1Field.setText(org.openide.util.NbBundle.getMessage(TransmitTopComponent.class, "TransmitTopComponent.byte1Field.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
