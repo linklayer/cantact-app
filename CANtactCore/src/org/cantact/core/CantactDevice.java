@@ -16,6 +16,34 @@ public class CantactDevice {
 
     private SerialPort serialPort;
     private int speedMode = 0;
+    
+    enum CanFrameDlc {
+        Dlc00(0),
+        Dlc01(1),
+        Dlc02(2),
+        Dlc03(3),
+        Dlc04(4),
+        Dlc05(5),
+        Dlc06(6),
+        Dlc07(7),
+        Dlc08(8),
+        Dlc12(9),
+        Dlc16(10),
+        Dlc20(11),
+        Dlc24(12),
+        Dlc32(13),
+        Dlc48(14),
+        Dlc64(15);        
+
+        private final int value;
+        private CanFrameDlc(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 
     public CantactDevice(String deviceName) {
         serialPort = new SerialPort(deviceName);
@@ -167,6 +195,7 @@ public class CantactDevice {
         
 
         dlc = Integer.valueOf(byteArrayToString(dlcBytes));
+        dlc = dlcToSize(CanFrameDlc.values()[dlc]);
         result.setDlc(dlc);
          
         if (!result.isIsRTR()){
@@ -202,6 +231,7 @@ public class CantactDevice {
 
     private String frameToSlcan(CanFrame frame) {
         String result = "";
+        int dlc = frame.getDlc();
         boolean isFd = frame.isIsFD();
         boolean isBRS = frame.isIsBRS();
         boolean hasExtendedID = frame.isHasExtendedID();
@@ -241,7 +271,7 @@ public class CantactDevice {
             
         }
 
-        result += Integer.toString(frame.getDlc());
+        result += Integer.toString(sizeToDlc(dlc).getValue());
         
         if (!frame.isIsRTR()){
             for (int i : frame.getData()) {
@@ -293,5 +323,82 @@ public class CantactDevice {
                 }
             }
         }
+    }
+    
+    private static CanFrameDlc sizeToDlc(int size) {
+        switch (size) {
+            case 0:
+                return CanFrameDlc.Dlc00;
+            case 1:
+                return CanFrameDlc.Dlc01;
+            case 2:
+                return CanFrameDlc.Dlc02;
+            case 3:
+                return CanFrameDlc.Dlc03;
+            case 4:
+                return CanFrameDlc.Dlc04;
+            case 5:
+                return CanFrameDlc.Dlc05;
+            case 6:
+                return CanFrameDlc.Dlc06;
+            case 7:
+                return CanFrameDlc.Dlc07;
+            case 8:
+                return CanFrameDlc.Dlc08;
+            case 12:
+                return CanFrameDlc.Dlc12;
+            case 16:
+                return CanFrameDlc.Dlc16;
+            case 20:
+                return CanFrameDlc.Dlc20;
+            case 24:
+                return CanFrameDlc.Dlc24;
+            case 32:
+                return CanFrameDlc.Dlc32;
+            case 48:
+                return CanFrameDlc.Dlc48;
+            case 64:
+                return CanFrameDlc.Dlc64;
+            default:
+                return CanFrameDlc.Dlc00;
+        }
+    }
+
+    static int dlcToSize(CanFrameDlc dlc) {
+        switch (dlc) {
+            case Dlc00:
+                return 0;
+            case Dlc01:
+                return 1;
+            case Dlc02:
+                return 2;
+            case Dlc03:
+                return 3;
+            case Dlc04:
+                return 4;
+            case Dlc05:
+                return 5;
+            case Dlc06:
+                return 6;
+            case Dlc07:
+                return 7;
+            case Dlc08:
+                return 8;
+            case Dlc12:
+                return 12;
+            case Dlc16:
+                return 16;
+            case Dlc20:
+                return 20;
+            case Dlc24:
+                return 24;
+            case Dlc32:
+                return 32;
+            case Dlc48:
+                return 48;
+            case Dlc64:
+                return 64;
+        }
+        return 0;
     }
 }
